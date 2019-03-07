@@ -1,17 +1,17 @@
 #include <iostream> 
+#include <vector>
 #include <string>
-
-#include "709.hpp"
 
 using namespace std;
 
+#include "448.h"
+
+
 int main () {
-    int a = 'a';
-    int z = 'z';
-    int A = 'A';
-    int Z = 'Z';
-    cout << a<< " " << z << endl;
-    cout <<A << " " << Z << endl;
+    Solution xx;
+    vector<int> yy{4,3,2,7,8,2,3,1};
+
+    xx.sort(yy);
 
     return 0;
 }
