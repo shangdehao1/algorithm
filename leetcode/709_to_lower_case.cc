@@ -1,23 +1,27 @@
-#include <string>
-
 /*
   Implement function ToLowerCase() that has a string parameter str, and returns the same string in lowercase.
   
-  Example 1:
+  == Example 1: ==
   
   Input: "Hello"
   Output: "hello"
-  Example 2:
+
+  == Example 2: ==
   
   Input: "here"
   Output: "here"
-  Example 3:
+
+  == Example 3: ==
   
   Input: "LOVELY"
   Output: "lovely"
 
 */
 
+
+// ====== 
+
+namespace method1 {
 
 std::string toLowerCase(std::string str) {
     int low = 'a';      
@@ -35,5 +39,22 @@ std::string toLowerCase(std::string str) {
     }
     return results;
 }
+}
+
+namespace method2 {
+  std::string toLowerCase(std:string str) {
+    for(auto& temp : str) {
+      if(temp <= 'Z' && 'A' <= temp) {
+        temp += ('Z' - 'z');
+      }
+    }
+    return str;
+  }
+}
+
+
+
+
+
 
 

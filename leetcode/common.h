@@ -5,6 +5,8 @@
 #include<vector>
 #include<assert.h>
 
+#include<functional>
+
 
 
 using namespace std;

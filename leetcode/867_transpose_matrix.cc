@@ -30,8 +30,10 @@ using namespace std;
 
 // time : n*n 
 // space :  n*n
-vector<vector<int>> transpose(vector<vector<int>>& A) {
+vector<vector<int>> transpose(vector<vector<int>>& A) 
+{
   vector<vector<int>> results;
+
   for (int i = 0; i < A[0].size(); i++) {
     vector<int> temp(A.size(), 0);
     results.push_back(temp);
@@ -46,6 +48,26 @@ vector<vector<int>> transpose(vector<vector<int>>& A) {
 }
 
 vector<vector<int>> transpose(vector<vector<int>>& A) {
+
+}
+
+// ===========================
+
+// for m*n matrix , m must be equal to n. 
+
+namespace method3 {
+
+vector<vector<int>> transpose(vector<vector<int>>& A) 
+{
+  if (A.size() < 2) return A;
+
+  for (int i = 0; i < A.size(); i++) {
+    for (int j = i + 1; j < A[0].size(); j++) {
+      swap(A[i][j], A[j][i]);
+    }
+  }
+  return A;
+}
 
 }
 

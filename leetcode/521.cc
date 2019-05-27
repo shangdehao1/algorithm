@@ -24,7 +24,7 @@
  * Only letters from a ~ z will appear in input strings.
  *  
  */
-
+// soft link white some thing
 
 // garbage !!!!!
 

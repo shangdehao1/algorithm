@@ -22,26 +22,35 @@ The characters in J are distinct.
 
 */
 
-#include <iostream> 
-#include <vector> 
 
-using namespace std;
+namespace method1 {
 
-
-
-class Solution {
-public:
-    int numJewelsInStones(string J, string S) {
-        uint64_t index = 0;
-        for(auto temp : S) {
-            if(J.find(temp) == string::npos) {
-                continue;
-            }
-            index++;
-        }
-        return index;
+int numJewelsInStones(string J, string S) {
+  uint64_t index = 0;
+  for(auto temp : S) {
+    if(J.find(temp) != string::npos) {
+      index++;
     }
-};
+  }
+  return index;
+}
+
+}
+
+namespace method2 {
+
+  int numJewelsInStones(string J, string S) {
+    int result = 0;
+    unordered_set<char> map(J.begin(), J.end());
+    for (auto temp : S) {
+      if(map.find(temp) != map.end()) {
+        result++;
+      }
+    }
+    return result;
+  }
+
+}
 
 
 

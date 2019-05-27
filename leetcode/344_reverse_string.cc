@@ -13,6 +13,8 @@
  */
 
 
+#include "common.h"
+
 
 string reverseString(string s) {
   reverse(s.begin(), s.end());
@@ -20,20 +22,11 @@ string reverseString(string s) {
 }
 
 
-string reverseString(string s) {
-  int index;
-  if(s.size()%2 == 0) {
-    index = s.size()%2;
-  } else {
-    index = s.size()%2 + 1;
+void reverseString(vector<char>& s) {
+  for (int i = 0; i < s.size() / 2; i++) {
+    swap(s[i], s[s.size() - 1 - i]);
   }
-  for (int i = 0; i < index; i++) {
-    swap(s[i], s[s.size() - i]);
-  }
-  return s;
 }
-
-
 
 
 

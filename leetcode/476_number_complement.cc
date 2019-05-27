@@ -36,14 +36,17 @@ mask         = 11111000 --> 00000111
 
 */
 
-
-
-int findComplement(int num) {
+int findComplement(int num) 
+{
+  // reverse
   unsigned mask = ~0;
+
+  // obtain mask
   while (num & mask) mask <<= 1;
+
+  // &
   return ~mask & ~num;
 }
-
 
 
 

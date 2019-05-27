@@ -17,21 +17,32 @@
 
 // method 1
 
-int arrayPairSum(vector<int>& nums) {
+namespace method1 {
+
+int arrayPairSum(vector<int>& nums) 
+{
   int results = 0;
-  std::sort(nums.begin(), nums.end());        
+
+  std::sort(nums.begin(), nums.end());
+
   for (int i = 0; i < nums.size(); i += 2) {
     results += nums[i];   
   }
+
   return results;
+}
+
 }
 
 // method 2
 
-int arrayPariSum(vecotr<int>& nums) {
+namespace method2 {
 
+int arrayPariSum(vecotr<int>& nums) 
+{
   // use simple hash to sort data.
-  vector<int> hashtable(20001,0);
+  vector<int> hashtable(20001, 0);
+
   for (size_t i = 0; i < nums.size(); i++) {
     hashtable[nums[i] + 10000]++;
   }
@@ -39,8 +50,9 @@ int arrayPariSum(vecotr<int>& nums) {
   // pick odd num, then sum it.
   int ret = 0;
   int flag = 0;
-  for(size_t i = 0; i < 20001;) {
-    if((hashtable[i] > 0)&&(flag == 0)){
+  for(size_t i = 0; i < 20001;) 
+  {
+    if((hashtable[i] > 0) && (flag == 0)) {
       ret = ret + i - 10000;
       flag = 1;
       hashtable[i]--;
@@ -51,11 +63,21 @@ int arrayPariSum(vecotr<int>& nums) {
        i++;
     }
   }
+
   return ret;
 }  
 
+}
 
 
+
+namespace method3 {
+
+int arrayPariSum(vecotr<int>& nums) {
+  
+}
+
+}
 
 
 

@@ -36,36 +36,38 @@ Note:
  */
 
 
-#include <iostream> 
-#include <string>
-#include <vector> 
+#include "common.h"
 
-#include <set> 
 
-using namespace std;
+namespace mthod2 {
 
-class Solution {
-public:
-    int uniqueMorseRepresentations(vector<string>& words) {
+const static vector<string>  letter_encoding{".-","-...","-.-.","-..",".","..-.","--.",
+          "....","..",".---","-.-",".-..","--","-.","---",".--.",
+          "--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
 
-      char* temp[] = {".-","-...","-.-.","-..",".","..-.","--.","....","..",
-                      ".---","-.-",".-..","--","-.","---",".--.","--.-",
-                      ".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+int uniqueMorseRepresentations(vector<string>& words) 
+{
+  unordered_set<string> result;
 
-      vector<string> dic(temp, temp+26);
-
-      set<string> results;
-
-      for(auto word : words) {
-        string temp;
-        for(auto c : word) {
-          temp += dic[c-'a'];
-        }
-        results.insert(temp);
-      }
-      return (int)results.size();
+  auto get_encoding = [](const string& word, string& code) {
+    for(auto letter : word) {
+      code += letter_encoding[letter - 'a'];
     }
-};
+  };
+
+  for (auto temp : words) {
+    string t;
+    get_encoding(temp, t);
+    result.insert(t);
+  }
+
+  return result.size();
+}
+
+
+
+
+}
 
 
 int main() {

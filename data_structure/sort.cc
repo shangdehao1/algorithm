@@ -6,15 +6,13 @@ using namespace std;
 
 // =================
 
-void insertion_sort(vector<int>& data) 
-{
-  for(int i = 1; i < data.size(); i++) 
-  {
+void insertion_sort(vector<int>& data) {
+  for(int i = 0; i < data.size(); i++) {
     int target = data[i];
-    int index = -1;
-    for(index = i - 1; index >= 0 && target < data[index]; index--) 
-    {
-      data[index+1] = data[index];
+    int index = i - 1;
+    while(index >= 0 && data[index] > target) {
+      data[index + 1] = data[index]; 
+      index--;
     }
     data[index + 1] = target;
   }
@@ -22,25 +20,7 @@ void insertion_sort(vector<int>& data)
 
 // ===================
 
-void shell_sort(int a[], int n)
-{
-    int d, i, j, temp; //d为增量
-    for(d = n/2;d >= 1;d = d/2) //增量递减到1使完成排序
-    {
-        for(i = d; i < n;i++)   //插入排序的一轮
-        {
-            temp = a[i];
-            for(j = i - d;(j >= 0) && (a[j] > temp);j = j-d)
-            {
-                a[j + d] = a[j];
-            }
-            a[j + d] = temp;
-        }
-    }
-}
-
-void shell_sort(vector<int>& data) 
-{
+void shell_sort(vector<int>& data) {
   for(int step = data.size() / 2; step > 0; step = step / 2) 
   {
     for(int i = step; i < data.size(); i++) 
@@ -55,8 +35,7 @@ void shell_sort(vector<int>& data)
 
 // ==================
 
-void selection_sort(vector<int>& data) 
-{
+void selection_sort(vector<int>& data) {
   for(int i = 0; i < data.size() - 1; i++) {
     int index = i;
     for(int j = i + 1; j < data.size(); j++) {
@@ -71,8 +50,7 @@ void selection_sort(vector<int>& data)
 
 // =====================
 
-void bubble_sort(vector<int>& data) 
-{
+void bubble_sort(vector<int>& data) {
   for(int i = data.size() - 1; i > 0; i--) {
     for(int j = 0; j < i; j++) {
       if(data[j] > data[j+1]) {
@@ -82,10 +60,10 @@ void bubble_sort(vector<int>& data)
   }
 }
 
-// =====================================
+// =====================
 
-void quick_sort_internal(vector<int>& data, int first, int last) 
-{
+/*
+void quick_sort_internal1(vector<int>& data, int first, int last) {
   if(last <= first) {
     return;
   }
@@ -115,6 +93,41 @@ void quick_sort_internal(vector<int>& data, int first, int last)
 
   data[left] = index;
   
+  quick_sort_internal1(data, first, left - 1);
+  quick_sort_internal1(data, left + 1, last);
+}
+
+void quick_sort1(vector<int>& data) {
+  quick_sort_internal1(data, 0, data.size() - 1);
+}
+*/
+
+void quick_sort_internal (vector<int>& data, int first, int last) {
+  if (first >= last) {
+    return;
+  }
+  int left = first;
+  int right = last;
+  int index = data[left];
+
+  while (left < right) {
+    while (left < right && index <= data[right]) {
+      right--;
+    }
+    if(left < right) {
+      data[left++] = data[right];
+    }
+    
+    while (left < right && data[left] <= index) {
+      left++;
+    }
+    if (left < right) {
+      data[right--]  = data[left];
+    }
+  }
+  
+  data[left] = index;
+  
   quick_sort_internal(data, first, left - 1);
   quick_sort_internal(data, left + 1, last);
 }
@@ -125,6 +138,7 @@ void quick_sort(vector<int>& data) {
 
 // =======================================
 
+/*
 void heap_adjust(vector<int>& data, int index, int len) 
 {
   int temp = data[index];
@@ -152,6 +166,36 @@ void heap_sort(vector<int>& data)
   }
 
   for(int i = data.size() - 1; i > 0; i--) {
+    swap(data[0], data[i]);
+    heap_adjust(data, 0, i);
+  }
+}
+*/
+
+void heap_adjust(vector<int>& data, int index, int len) {
+  int target = data[index];
+
+  for (int j = 2 * index + 1; j < len; j = 2 * j + 1) {
+    if(j + 1 < len && data[j] < data[j + 1]) {
+      j++;
+    }
+
+    if (target < data[j]) {
+      data[index] = data[j];
+      index = j;
+    } else {
+      break;
+    }
+  }
+  data[index] = target;
+}
+
+void heap_sort(vector<int>& data) {
+  for(int i = data.size() / 2 - 1; i >= 0; i--) {
+    heap_adjust(data, i, data.size());
+  }
+  
+  for (int i = data.size() - 1; i > 0; i--) {
     swap(data[0], data[i]);
     heap_adjust(data, 0, i);
   }
@@ -336,7 +380,6 @@ int main()
     print_output("shell sort : ", temp2);
     print_output("shell sort : ", temp3);
   }
-
 
 
   return 0;

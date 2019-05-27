@@ -13,7 +13,10 @@
 
 // method 1 : split + reverse
 
-string reverseWords(string s) {
+namespace method1 {
+
+string reverseWords(string s) 
+{
   auto explode = [](const string& s, const char& c) {
     string buff{""};
     vector<string> results;
@@ -47,24 +50,33 @@ string reverseWords(string s) {
   return results;
 }
 
-
-// method 2 : iterator + reverse
-
-
-
-string reverseWords(string s) {
-  auto f_index = s.begin();  
-  for(auto i = s.begin(); i != s.end(); i++) {
-    if(*i == ' ') {
-      reverse(f_index, i);
-      f_index = i + 1;
-    } 
-  }
-  reverse(f_index, s.end());
-  return s;
 }
 
 
+// method 3 : iterator + reverse
+
+namespace method3 
+{
+  string reverseWords(string s) 
+  {
+    int left = 0;   
+    int right = 0;
+
+    while(left <= right && left < s.size()) {
+      while(right < s.size() && s[right] != ' ') {
+        right++;
+      }
+
+      if((left < right && (s[right] == ' '|| right == s.size()))) {
+        reverse(s.begin() + left, s.begin() + right); 
+      }
+      
+      left = ++right;
+    }
+    return s;
+  }
+
+}
 
 
 
