@@ -204,8 +204,9 @@ public:
       }
     }
     
-    HashNode *remove(int x, HashNode *parent) 
-    {
+    // =======================
+
+    HashNode *remove(int x, HashNode *parent) {
         HashNode *current = parent;
         HashNode *left = nullptr;
         HashNode *right = nullptr;
@@ -268,7 +269,6 @@ public:
 
 int main() {
   return 0;
-
 }
 
 
