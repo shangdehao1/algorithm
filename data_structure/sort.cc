@@ -6,7 +6,10 @@ using namespace std;
 
 // =================
 
-void insertion_sort(vector<int>& data) {
+/*
+
+void insertion_sort(vector<int>& data) 
+{
   for(int i = 0; i < data.size(); i++) {
     int target = data[i];
     int index = i - 1;
@@ -16,6 +19,20 @@ void insertion_sort(vector<int>& data) {
     }
     data[index + 1] = target;
   }
+}
+
+*/
+
+void insertion_sort (vector<int>& data) {
+  for (int i = 1; i < data.size(); i++) {
+    int target = data[i];
+    int insert_position = i;
+    while ((insert_position - 1) >= 0 && data[insert_position - 1] > target) {
+      data[insert_position] = data[insert_position - 1];
+      insert_position--;
+    }
+    data[insert_position] = target;
+  }  
 }
 
 // ===================
@@ -35,6 +52,7 @@ void shell_sort(vector<int>& data) {
 
 // ==================
 
+/*
 void selection_sort(vector<int>& data) {
   for(int i = 0; i < data.size() - 1; i++) {
     int index = i;
@@ -47,10 +65,31 @@ void selection_sort(vector<int>& data) {
   }
 }
 
+*/
+
+void selection_sort(vector<int>& data) {
+
+  auto get_min_value = [](const vector<int>& data, int first, int last) {
+    int ret = data[first];
+    for (int i = first + 1; i <= last; i++) {
+      if(ret > data[i]) {
+        ret = data[i];
+      } 
+    }
+    return ret;
+  };
+
+  for (int i = 1; i < data.size(); i++) {
+    data[i - 1] = get_min_value(data, i, data.size() - 1);
+  }
+}
+
 
 // =====================
 
-void bubble_sort(vector<int>& data) {
+/*
+void bubble_sort(vector<int>& data) 
+{
   for(int i = data.size() - 1; i > 0; i--) {
     for(int j = 0; j < i; j++) {
       if(data[j] > data[j+1]) {
@@ -59,6 +98,24 @@ void bubble_sort(vector<int>& data) {
     } 
   }
 }
+*/
+
+
+void bubble_sort(vector<int>& data) {
+  
+  for(int i = data.size() - 1; i > 0; i--) {
+    for(int j = 0; j < i; j++) {
+      if(data[j] > data[j+1]) {
+        swap(data[j], data[j+1]);
+      }
+    }
+  }
+
+}
+
+
+
+
 
 // =====================
 
@@ -102,39 +159,47 @@ void quick_sort1(vector<int>& data) {
 }
 */
 
-void quick_sort_internal (vector<int>& data, int first, int last) {
-  if (first >= last) {
-    return;
+
+void quick_sort_internal(vector<int>& data, int first, int last) {
+  if(first >= last) {
+    return; 
   }
+
   int left = first;
   int right = last;
-  int index = data[left];
+  int target = data[first];
+  
 
   while (left < right) {
-    while (left < right && index <= data[right]) {
+    while(left < right && data[right] >= target) {
       right--;
     }
+
     if(left < right) {
       data[left++] = data[right];
     }
-    
-    while (left < right && data[left] <= index) {
+
+    while(left < right && data[left] <= target) {
       left++;
     }
-    if (left < right) {
-      data[right--]  = data[left];
+
+    if(left < right) {
+      data[right--] = data[left];
     }
   }
-  
-  data[left] = index;
-  
+  data[left] = target;
+
   quick_sort_internal(data, first, left - 1);
   quick_sort_internal(data, left + 1, last);
+
 }
+
 
 void quick_sort(vector<int>& data) {
   quick_sort_internal(data, 0, data.size() - 1);
 }
+
+
 
 // =======================================
 
@@ -172,34 +237,16 @@ void heap_sort(vector<int>& data)
 }
 */
 
-void heap_adjust(vector<int>& data, int index, int len) {
-  int target = data[index];
-
-  for (int j = 2 * index + 1; j < len; j = 2 * j + 1) {
-    if(j + 1 < len && data[j] < data[j + 1]) {
-      j++;
-    }
-
-    if (target < data[j]) {
-      data[index] = data[j];
-      index = j;
-    } else {
-      break;
-    }
-  }
-  data[index] = target;
-}
 
 void heap_sort(vector<int>& data) {
-  for(int i = data.size() / 2 - 1; i >= 0; i--) {
+  for (int i = data.size() / 2  - 1; i >= 0; i--) {
     heap_adjust(data, i, data.size());
   }
-  
-  for (int i = data.size() - 1; i > 0; i--) {
-    swap(data[0], data[i]);
-    heap_adjust(data, 0, i);
-  }
 }
+
+
+
+
 
 // =====================================
 

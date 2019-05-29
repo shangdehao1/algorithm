@@ -34,6 +34,7 @@ struct TreeNode {
   TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
+namespace method1 {
 
 // ====== method 1 : depth search ========
 int depth_search(TreeNode* node) {
@@ -54,11 +55,14 @@ int maxDepth(TreeNode* root) {
   return root == nullptr ? 0 : (max( maxDepth(root->left), maxDepth(root->right)) + 1);
 }
 
+}
 
+namespace method2 {
 
 // ======  methodd 2 : width search =======
 
-int maxDepth1(TreeNode* root) {
+int maxDepth(TreeNode* root) 
+{
   queue<TreeNode*> current_queue;
   queue<TreeNode*> next_queue;
   int index = 0;
@@ -80,10 +84,22 @@ int maxDepth1(TreeNode* root) {
   return index;
 }
 
+}
 
 
 // ======== method 3 :  =======
 
+namespace method3 {
+
+int maxDepth(TreeNode* root) 
+  if (root == nullptr) {
+    return 0;
+  }
+
+  return max(maxDepth(root->left), maxDepth(root->right)) + 1;
+}
+
+}
 
 
 int main() {
