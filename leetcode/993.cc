@@ -13,32 +13,11 @@ Return true if and only if the nodes corresponding to the values x and y are cou
 #include "common.h"
 
 
-struct TreeNode {
-  int val;
-  TreeNode *left;
-  TreeNode *right;
-  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-};
+namespace method1 {
 
-class Solution {
-public:
+typedef std::pair<int, TreeNode*> result;
 
-    typedef std::pair<int, TreeNode*> result;
-
-    bool isCousins(TreeNode* root, int x, int y) {
-      result result_x{-1, nullptr};
-      result result_y{-1, nullptr};
-
-      search(root, x, y, 0, nullptr, result_x, result_y);
-     
-      if(result_x.first == result_y.first && result_x.second != result_y.second) {
-        return true;
-      }
-
-      return false;
-    }
-
-    void search(TreeNode* root, int x, int y, int depth, TreeNode* p, result& result_x, result& result_y) {
+void search(TreeNode* root, int x, int y, int depth, TreeNode* p, result& result_x, result& result_y) {
       if(root == nullptr) return;
 
       if(result_x.first != -1 && result_y.first != -1) {
@@ -56,7 +35,25 @@ public:
       search(root->left, x, y, depth + 1, root, result_x, result_y);
       search(root->right, x, y, depth + 1, root, result_x, result_y);
     }
-};
+
+}
+
+bool isCousins(TreeNode* root, int x, int y) {
+  result result_x{-1, nullptr};
+  result result_y{-1, nullptr};
+
+  search(root, x, y, 0, nullptr, result_x, result_y);
+     
+  if(result_x.first == result_y.first && result_x.second != result_y.second) {
+    return true;
+  }
+
+  return false;
+}
+
+}
+
+
 
 int main () 
 {

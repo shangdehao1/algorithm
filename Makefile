@@ -7,3 +7,4 @@ clean:
 	rm -f ./note/.*.swp
 	rm -f ./common_function/a.out
 	rm -f ./common_function/.*.swp
+	rm -f ./note/smart_ptr/a.out
