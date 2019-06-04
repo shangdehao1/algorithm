@@ -15,8 +15,26 @@
  * 
  */
 
+namespace method_1 {
+
 int maxSubArray(vector<int>& nums) {
-        
+  int left_max = 0;
+  int result = INT_MIN;
+
+  for (int i = 0; i < nums.sie(); i++) {
+    left_max = max(left_max + nums[i], nums[i]);
+    result = left_max > result ? left_max : result; 
+  }
+
+  return result;
 }
 
 
+int maxSubArray(vector<int>& nums) {
+
+}
+
+
+int maxSubArray(vector<int>& nums) {
+        
+}
