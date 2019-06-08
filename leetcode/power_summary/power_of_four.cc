@@ -1,0 +1,1 @@
+../342_power_of_four.cc
