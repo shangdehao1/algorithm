@@ -5,6 +5,7 @@
 #include<vector>
 #include<assert.h>
 
+#include <set>
 #include<stack>
 #include <queue>
 #include<functional>
@@ -35,7 +36,7 @@ struct TreeNode {
 
 
 template<typename T> 
-void output_container(T& data, string information) {
+void output_container(T& data, string information = "") {
   std::cout << information << std::endl;
 
   for(auto t : data) {
