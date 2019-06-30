@@ -38,6 +38,8 @@ bool isPowerOfThree(int n) {
 }
 
 
+// TODO better method ???? 
+
 namespace bit_method {
 
 bool isPowerOfThree(int n) {

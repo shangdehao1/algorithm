@@ -23,6 +23,8 @@
 
 #include "common.h"
 
+namespace search_deplicate_method {
+
 bool isHappy(int n) 
 {
   unordered_set<int> hash_map;
@@ -42,26 +44,53 @@ bool isHappy(int n)
     return ret;
   };
 
-  while (n > 9) 
+  while (n != 1) 
   {
-    hash_map.insert(n);
-
     vector<int> digits;
     break_down_digit(n, digits);
     n = power_of_array(digits);
 
     if (hash_map.find(n) != hash_map.end()) {
-      std::cout << "==== " << n << endl;
       return false;
     } else {
-      std::cout << "---- " << n << endl;
+      hash_map.insert(n);
     }
   } 
 
-  std::cout << "final : " << n << endl;
-  return n == 1;     
+  return true;     
 }
 
+}
+
+namespace nice_method {
+
+int my_digit(int n) {
+    int sum = 0;
+    while (n != 0) {
+        sum += (n % 10) * (n % 10);
+        n /= 10;
+    }
+    return sum;
+}
+
+bool isHappy(int n) {
+    int slow = n;
+    int fast = n;
+
+    do {
+        slow = my_digit(slow);
+        fast = my_digit(my_digit(fast));
+    } while(slow != fast);
+
+    if (slow == 1) {
+        return 1;
+    }
+
+    return 0;
+}
+
+
+}
 
 
 int main () {

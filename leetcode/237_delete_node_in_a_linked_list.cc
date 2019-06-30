@@ -30,6 +30,8 @@
  * 
  */
 
+// TODO better method ?????
+
 void deleteNode(ListNode* node) {
   if (node == nullptr || node->next == nullptr) 
     return;

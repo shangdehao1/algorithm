@@ -66,7 +66,6 @@ int arrayPariSum(vecotr<int>& nums)
 
   return ret;
 }  
-
 }
 
 

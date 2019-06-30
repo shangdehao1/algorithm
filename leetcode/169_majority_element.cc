@@ -32,6 +32,8 @@ int majorityElement(vector<int>& nums) {
 namespace method2 {
 
 
+// TODO  TODO  TODO
+
 int quick_adjust(vector<int>& data, int first, int last) {
   if(first >= last) {
     return first;

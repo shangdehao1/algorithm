@@ -23,7 +23,7 @@
 namespace space_method {
 
 bool isPalindrome(ListNode* head) {
-  vector<int> result;
+  deque<int> result;
   while(head != nullptr) {
     result.push_back(head->val);
     head = head->next;
@@ -34,7 +34,7 @@ bool isPalindrome(ListNode* head) {
       return false;
     }
     result.pop_back();
-    result.erase(result.begin());
+    result.pop_front();
   }
   return true;
 }
@@ -42,8 +42,8 @@ bool isPalindrome(ListNode* head) {
 
 }
 
+// TODO : better depth search method ????
 namespace depth_search {
-
 
 bool depth_search(ListNode* head, int index) {
   if (index < 2) return true;
@@ -57,8 +57,6 @@ bool depth_search(ListNode* head, int index) {
   return head->val == end->val && depth_search(head->next, index - 2);
 }
 
-
-
 bool isPalindrome(ListNode* head) {
   int index = 0;
   ListNode* temp = head;
@@ -70,8 +68,6 @@ bool isPalindrome(ListNode* head) {
 
   return depth_search(temp, index);
 }
-
-
   
 }
 

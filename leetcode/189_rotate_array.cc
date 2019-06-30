@@ -30,6 +30,8 @@
 
 namespace 
 
+// TODO more better method to solve this problems.
+
 void rotate(vector<int>& nums, int k1) {
 
   int k = k1 % nums.size();

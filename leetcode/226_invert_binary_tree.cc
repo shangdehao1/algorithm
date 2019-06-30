@@ -1,7 +1,4 @@
-/*
- * Invert a binary tree.
- * 
- * Example:
+/* * Invert a binary tree.  * * Example:
  * 
  * Input:
  * 

@@ -51,7 +51,6 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 
   if (result1 != nullptr && result2 == nullptr) return result1;
   
-  assert(0);
   return nullptr;
 }
 

@@ -27,6 +27,7 @@ namespace general_method1 {
 
 int firstBadVersion(int n) {
         
+  // TODO depth search
 }
 
 } // namespace 

@@ -13,6 +13,7 @@
 
 #include "common.h"
 
+// stl : accumulate(begin(), end(), 0);
 
 int addDigits(int num) {
 

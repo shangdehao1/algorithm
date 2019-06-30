@@ -32,6 +32,8 @@ If this function is called many times, how would you optimize it?
 
 #include "common.h"
 
+// TODO better method to solve this problem
+
 namespace bitset_method {
 
 uint32_t reverseBits(uint32_t n) {

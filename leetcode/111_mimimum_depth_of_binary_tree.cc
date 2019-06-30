@@ -39,6 +39,24 @@ int minDepth(TreeNode* root) {
 
 }
 
+namespace depth_search {
+
+int depth(TreeNode* root) {
+  if (root == nullptr) return INT_MAX;
+
+  if (root->left == nullptr && root->right == nullptr) return 1;
+
+  return min(depth(root->left), depth(root->right)) + 1;
+}
+
+int minDepth(TreeNode* root) {
+  if (root == nullptr) return 0;
+  return depth(root);
+}
+
+
+}
+
 
 
 

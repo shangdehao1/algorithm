@@ -16,7 +16,17 @@
 
   
 // ----
-    
+
+// orinial list : 1 --> 2 --> 3 --> 4 --> 5
+//
+//                    head   node
+//                      |     |
+//                      v     v
+// recursive    : 1 --> 2     5 --> 4 --> 3
+//                      |                 |
+//                      --------->---------
+//
+//
 namespace method1 {
 
 ListNode* reverseList(ListNode* head) {
@@ -36,7 +46,7 @@ ListNode* reverseList(ListNode* head) {
 namespace method2 {
 
 ListNode* reverseList(ListNode* head) {
-  ListNode temp(-1); //= head;
+  ListNode temp(-1); 
 
   while(head != nullptr) {
     auto next = head->next; 

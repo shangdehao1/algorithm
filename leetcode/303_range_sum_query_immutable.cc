@@ -16,6 +16,7 @@
  * 
  */
 
+// TODO : better method....
 
 namespace general_method {
 
@@ -44,7 +45,6 @@ private :
 
 
 namespace optimization_general_method {
-
 
 class NumArray {
 public:

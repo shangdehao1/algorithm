@@ -1,3 +1,6 @@
+#ifndef LEETCODE_COMMON_H
+#define LEETCODE_COMMON_H
+
 #include<iostream>
 #include<algorithm>
 #include<stdio.h>
@@ -17,10 +20,13 @@
 
 #include <sstream>
 
+#include <list>
+
 
 using namespace std;
 
 
+/*
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -47,3 +53,6 @@ void output_container(T& data, string information = "") {
 
   std::cout << endl;
 }
+*/
+
+#endif

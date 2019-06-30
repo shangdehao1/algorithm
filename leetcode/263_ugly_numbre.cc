@@ -28,6 +28,8 @@ Input is within the 32-bit signed integer range: [−231,  231 − 1].
 
 */
 
+// TODO : better method ???
+
 bool isUgly(int num) 
 {
   auto function = [](int num, int index) {

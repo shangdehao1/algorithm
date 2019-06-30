@@ -53,24 +53,6 @@ vector<int> twoSum(vector<int>& nums, int target) {
 
 namespace _method {
 
-vector<int> twoSum(vector<int> &numbers, int target)
-{
-  unordered_map<int, int> hash;
-  vector<int> result;
-
-  for (int i = 0; i < numbers.size(); i++) 
-  {
-    int gap = target - numbers[i];
-
-    if (hash.find(gap) != hash.end()) {
-      result.push_back(hash[gap] + 1);
-      result.push_back(i + 1);                  
-      return result;
-    }
-    hash[numbers[i]] = i;
-  }
-  return result;
-}
 
 }
 
@@ -79,9 +61,7 @@ vector<int> twoSum(vector<int> &numbers, int target)
 namespace nice_solution {
 
 vector<int> twoSum(vector<int> &nums, int target) {
-
   unordered_map<int, int> hash_map;
-  
   for (int i = 0; i < nums.size(); i++) {
     int gap = target - nums[i];
     if (hash_map.find(gap) != hash_map.end()) {

@@ -20,6 +20,8 @@ It doesn't matter what values are set beyond the returned length.
 
 */
 
+// TODO : better method....
+
 namespace new_space_method {
 
 int removeDuplicates(vector<int>& nums) {
