@@ -82,7 +82,7 @@ void test_move_construction () {
     xx = temp;
   }
 
-  // move construction
+  // move operator
   {
     test_move temp("shangdehao", "zhaozhuoran");
     test_move xx;
