@@ -1,3 +1,5 @@
+all:
+	g++ 
 clean:
 	rm -f ./leetcode/a.out
 	rm -f ./leetcode/.*.swp

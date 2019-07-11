@@ -94,7 +94,6 @@ void test_move_construction () {
 
 
 int main() {
-
   
   test_move_construction();
 

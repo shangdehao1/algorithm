@@ -62,14 +62,9 @@ int quick_adjust(vector<int>& data, int first, int last) {
     }
   }
   data[left] = target;
-  
-  std::cout << "==============" << left << std::endl;
-
-  output_container(data, "one time  quick adjust : ");
 
   return left;
 }
-
 
 int quick_method(vector<int>& data, int first, int last, int k) {
   if (first >= last) {
@@ -79,12 +74,6 @@ int quick_method(vector<int>& data, int first, int last, int k) {
   int temp = quick_adjust(data, first, last);
   assert(temp >= first && temp <= last);
 
-  std::cout << "first : temp : last : k : " << endl;
-
-  std::cout << first << " " << temp << " " << last << " " << k <<std::endl;
-
-  output_container(data, "===" );
-
   if (temp == k) {
     return data[k];
   } else if (temp < k) {
@@ -93,7 +82,6 @@ int quick_method(vector<int>& data, int first, int last, int k) {
     return quick_method(data, first, temp - 1, k);
   }
 }
-
 
 int majorityElement(vector<int>& nums) {
   if(nums.size() < 3) {

@@ -1,8 +1,5 @@
 /*
- *
- *
  * Given a binary tree, return the preorder traversal of its nodes' values.
- *
  *
  *  Input: [1,null,2,3]
  *
@@ -17,50 +14,70 @@
  */
 
 
-// ===== method 1 : depth prior search
-//
+// ===== method 1 : depth prior search based param referrence ============
+
+namespace method1 {
+
 void pre_order_traversal_tree(TreeNode* node, vector<int> &results) {
-    if(node == nullptr) {
-        return;
-    }
-    results.push_back(node->val);
-    pre_order_traversal_tree(node->left, results);
-    pre_order_traversal_tree(node->right, results);
+  if(node == nullptr) {
+    return;
+  }
+
+  results.push_back(node->val);
+  pre_order_traversal_tree(node->left, results);
+  pre_order_traversal_tree(node->right, results);
 }
 
-vector<int> preorderTraversal1( TreeNode *root ){
+vector<int> preorderTraversal(TreeNode *root ) {
      vector<int> results;
      pre_order_traversal_tree(root, results);
      return results;
- }
+}
+
+}
+
+// ========== method 2 ===============
+
+namespace method2 {
+
+vector<int> preorderTraversal(TreeNode *root ){
+  if (root == nullptr) return vector<int>{};
+
+  auto left = preorderTraversal(root->left);
+  auto right = preorderTraversal(root->right);
+
+  left.insert(left.begin(), root->val);
+  left.insert(left.end(), right.begin(), right.end());
+  return left;
+}
+
+}
 
 
-// ==== method 2 : stack 
-//
+// ==== method 2 : stack  ===================
+
 vector<int> preorderTraversal( TreeNode *root ) {
+    if (root == nullptr) return {};
+
     vector<int> results;
     TreeNode* curr = root; 
     TreeNode* prev = nullptr;
+
     stack<TreeNode*> path;
-    if(curr != nullptr) {
-        path.push(curr);
-    }
+    path.push(curr);
 
     while(!path.empty()) {
         curr = path.top();
         path.pop();
 
         results.push_back(curr->val); 
-        if(curr->right != nullptr) {
-            path.push(curr->right);
-        }
 
-        if(curr->left != nullptr) {
-            path.push(curr->left);
-        }
+        if(curr->right != nullptr) path.push(curr->right);
+        if(curr->left != nullptr) path.push(curr->left);
     }
     return results;
 }
+
 
 // === method 3 : index
 

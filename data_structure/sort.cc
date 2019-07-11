@@ -115,46 +115,6 @@ void bubble_sort(vector<int>& data) {
 
 // =====================
 
-/*
-void quick_sort_internal1(vector<int>& data, int first, int last) {
-  if(last <= first) {
-    return;
-  }
-
-  int index = data[first];
-  int left = first;
-  int right = last;
-
-  while(left < right) 
-  {
-    while(left < right && data[right] >= index) 
-      right--;
-
-    if(left < right) {
-      data[left] = data[right];      
-      left++;
-    }
-    
-    while(left < right && data[left] < index)
-      left++;
-
-    if(left < right) {
-      data[right] = data[left];
-      right--;
-    }
-  }
-
-  data[left] = index;
-  
-  quick_sort_internal1(data, first, left - 1);
-  quick_sort_internal1(data, left + 1, last);
-}
-
-void quick_sort1(vector<int>& data) {
-  quick_sort_internal1(data, 0, data.size() - 1);
-}
-*/
-
 void quick_sort_internal(vector<int>& data, int first, int last) 
 {
   if(first >= last) {
@@ -198,39 +158,75 @@ void quick_sort(vector<int>& data)
 }
 
 
+
 // =======================================
 
-void heap_adjust(vector<int>& data, int index, int len) 
-{
-  int temp = data[index];
+namespace heap_sort_base {
 
-  for (int i = index * 2 + 1; i < len; i = 2 * i + 1) {
-    if(i + 1 < len && data[i + 1] > data[i]) {
+void heap_adjust(vector<int>& data, int first, int last) 
+{
+  int temp = data[first];
+
+  for (int i = first * 2 + 1; i <= last; i = 2 * i + 1) {
+    if(i + 1 <= last && data[i + 1] > data[i]) {
       i++;
     }
     
     if(temp < data[i]) {
-      data[index] = data[i];
-      index = i;
+      data[first] = data[i];
+      first = i;
     } else {
       break;
     }
   }
 
-  data[index] = temp;
+  data[first] = temp;
 }
 
 void heap_sort(vector<int>& data) 
 {
   for(int i = data.size() / 2 - 1; i >= 0; i--) {
-    heap_adjust(data, i, data.size());
+    heap_adjust(data, i, data.size() - 1);
   }
 
   for(int i = data.size() - 1; i > 0; i--) {
     swap(data[0], data[i]);
-    heap_adjust(data, 0, i);
+    heap_adjust(data, 0, i - 1);
   }
 }
+
+}
+
+
+void heap_adjust(vector<int>& data, int first, int last) {
+  int temp = data[first];
+
+  for (int i = first * 2; i <= last; i *= 2) {
+    if ((i + 1 <= last) && data[i] < data[i + 1]) 
+      i++;
+    
+    if (data[i] > temp) {
+      data[first] = data[i];
+      first = i;
+    } else {
+      break;
+    }
+  }
+  data[first] = temp;
+}
+
+
+
+void heap_sort(vector<int>& data) {
+  for (int i = data.size() / 2 - 1; i >= 0; i--) {
+    heap_adjust(data, i, data.size() - 1); 
+  }
+  for (int i = data.size() - 1; i > 0; i--) {
+    std::swap(data[i], data[0]);
+    heap_adjust(data, 0, i - 1);
+  }
+}
+
 
 
 // =====================================
@@ -418,57 +414,5 @@ int main()
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// ========= back up =========
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-void bubble_sort (int a[], int n) {
-    int i, j, lastSwap, tmp;
-    for (j=n-1; j>0; j=lastSwap) {
-        lastSwap=0;     //每一轮要初始化为0，防止某一轮未发生交换，lastSwap保留上一轮的值进入死循环
-        for (i=0; i<j; i++) {
-            if (a[i] > a[i+1]) {
-                tmp=a[i];
-                a[i]=a[i+1];
-                a[i+1]=tmp;
-　　　　　　　　   //最后一次交换位置的坐标
-                lastSwap = i;
-            }
-        }
-    }
-}
-*/
 
 

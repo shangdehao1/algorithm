@@ -23,9 +23,9 @@
 
 
 
- int mySqrt(int x) {
+int mySqrt(int x) {
         
-        int left=1;
+  int left=1;
         int right=x/2;
         
         int last_mid;

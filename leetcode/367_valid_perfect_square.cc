@@ -50,7 +50,7 @@ public boolean isPerfectSquare(int num) {
     }
 
 
-namespace binary_search {
+namespace binary_search_based_on_iterator {
 
 bool isPerfectSquare(int num) {
   int left = 1;
@@ -73,8 +73,7 @@ bool isPerfectSquare(int num) {
 }
 
 
-namespace depth_search {
-
+namespace binary_search_based_on_depth_search {
 
 bool depth_search(int num, long long left, long long right) {
   if (left > right) {

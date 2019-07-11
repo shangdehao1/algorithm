@@ -48,6 +48,7 @@ int firstBadVersion(int n) {
       left = mid + 1;
     }
   }
+
   return left;
 }
 

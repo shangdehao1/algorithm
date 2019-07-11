@@ -1,0 +1,37 @@
+
+
+implicit conversion
+
+  - standard conversion
+      some typicial situation : 
+        - negative integer is converted to an unsigned type.
+        - bool, numberic types, pointer types. 
+        - float, interger.
+
+        - null pointer can be converted to pointers of any type.
+        - pointers to any type can be converted to void pointers.
+        - pointer upcast : pointers to a derived class can be converted to a pointer of base class.
+
+  - implicit conversion with class 
+        - single-argument construction 
+        - assignment operator
+        - Type-cast operator 
+  
+
+explicit conversion
+
+  Specific casting operator
+    
+   - dynamic_cast <new_type> (expression)
+   - reinterpret_cast <new_type> (expression)
+   - static_cast <new_type> (expression)
+   - const_cast <new_type> (expression)
+
+  The traditional type-casting equivalents to these expressions would be:
+
+   - (new_type) expression
+   - new_type (expression)
+
+
+
+

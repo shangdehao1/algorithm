@@ -16,8 +16,7 @@
 using namespace std;
 
 namespace dehao_const {
-
-  class test_class {
+class test_class {
   public:
     test_class(string m) : m_data(m) {}
     ~test_class() {}

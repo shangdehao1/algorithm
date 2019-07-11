@@ -23,8 +23,6 @@ public:
   class UpdateContext {
     public:
       virtual ~UpdateContext() {}
-
-      /* update should return true if object is updated */
       virtual bool update(V *v) = 0;
   };
 
@@ -34,15 +32,7 @@ public:
 public:
   lru_map(int m) : m_lru_size(m) {}
   virtual ~lru_map() {}
-
   bool find(const K& key, V& value);
-
-  /*
-   * find_and_update()
-   *
-   * - will return true if object is found
-   * - if ctx is set will return true if object is found and updated
-   */
   bool find_and_update(const K& key, V *value, UpdateContext *ctx);
   void add(const K& key, V& value);
   void erase(const K& key);
@@ -133,3 +123,65 @@ void lru_map<K, V>::erase(const K& key)
 }
 
 #endif
+
+
+
+
+template<typename K, typename V>
+class lru_map {
+
+  struct entry {
+    V value;
+    std::list<K>::iterator iter_lru;
+  };
+
+  std::list<K> m_entries_lru;
+  std::map<K, entry> m_entries;
+  size_t m_lru_size;
+  std::mutex m_lock;
+
+  bool _find(const K& key, V* v, UpdateContext& update ) {}
+  void _add(const K& key, const V& value) {}
+
+public:
+
+  class UpdateContext {
+   public:
+    virtual ~UpdateContext(){}  
+    virtual void update() {} = 0;
+  };  
+
+  lru_map(size_t s) : m_lru_size(s) {};
+  ~lru_map(){}
+
+   
+  bool find_and_update(const K& key, V* v, Update  
+  
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

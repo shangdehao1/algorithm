@@ -84,9 +84,7 @@ private:
 
 }
 
-
 namespace assign_construction {
-
 
 }
 
@@ -132,8 +130,6 @@ private:
   string m_data1;
   string m_data2;
 };
-
-
 
 }
 
