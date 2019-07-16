@@ -87,11 +87,9 @@ void test_explicit() {
   // ==> compiler error : no known conversion for argument 1 from ‘int’ to ‘B’
   // temp_function(0);
 
+  // TODO : how to call explicit function....
+
 }
-
-
-
-
 
 
 int main() {

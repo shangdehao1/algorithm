@@ -1,5 +1,4 @@
 /*
- * 
  * You need to construct a string consists of parenthesis and integers from a binary tree with the preorder traversing way.
  * 
  * The null node needs to be represented by empty parenthesis pair "()". 
@@ -10,10 +9,10 @@
  * Input: Binary tree: [1,2,3,4]
  * 
  *        1
- *      /   \
- *     2     3
- *    /    
- *   4     
+ *       / \
+ *      2   3
+ *     /    
+ *    4     
  * 
  * Output: "1(2(4))(3)"
  * 
@@ -43,6 +42,7 @@ string tree2str(TreeNode* t) {
 
   if (t == nullptr) return "";
 
+/*
   if (t->left == nullptr && t->right == nullptr) {
     return to_string(t->val); 
   }
@@ -55,8 +55,20 @@ string tree2str(TreeNode* t) {
   if (t->left == nullptr && t->right != nullptr) {
     return to_string(t->val) + "()" + "(" + tree2str(t->right) + ")";
   }
+*/
 
   return to_string(t->val) + "(" + tree2str(t->left) + ")" + "(" + tree2str(t->right) + ")";
 }
+
+
+string tree2str(TreeNode* t) {
+  if (t == nullptr) return "";
+
+  return tree2str(t) + "(" + tree2str(t->left) + ")(" + tree2str(t->right) + ")";
+
+}
+
+
+
 
 

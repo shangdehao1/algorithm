@@ -21,7 +21,7 @@ void forwarding(t&& arg)
     std::cout << "after std::move, param type is : ";
     overloaded( std::move(arg)); // conceptually this would invalidate arg
 
-    std::cout << "after simple passing, arg type is : " << std::endl;
+    std::cout << "after simple passing, arg type is : ";
     overloaded(arg);
 }
  
@@ -30,7 +30,7 @@ int main() {
     std::cout << "==> initial caller passes rvalue : " << std::endl;
     forwarding(5);
 
-    std::cout << "==> initial caller passes lvalue : " << std::endl;;
+    std::cout << std::endl << "==> initial caller passes lvalue : " << std::endl;;
     int x = 5;
     forwarding(x);
 

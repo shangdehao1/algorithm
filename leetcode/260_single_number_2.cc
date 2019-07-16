@@ -19,7 +19,6 @@ using namespace std;
 
 // TODO better method ?
 
-
 vector<int> singleNumber(vector<int>& nums) {
   unordered_set<int> xx; 
   for(auto temp : nums) {
@@ -27,10 +26,33 @@ vector<int> singleNumber(vector<int>& nums) {
       xx.insert(temp);
     } else {
       xx.erase(temp);
-   }
- }
- return vector<int>{*(xx.begin()), *(xx.begin()++)};
+    }
+  }
+  return vector<int>{*(xx.begin()), *(xx.begin()++)};
 }
+
+// nice algorithm
+
+vector<int> singleNumber(vector<int>& nums) {
+
+  // get the xor of the two numbers we need to find
+  int diff = accumulate(nums.begin(), nums.end(), 0, bit_xor<int>());
+
+  // get its last set bit
+  diff &= -diff;
+
+  vector<int> rets = {0, 0}; // this vector stores the two numbers we will return
+  for (int num : nums) {
+    if ((num & diff) == 0) { // the bit is not set
+      rets[0] ^= num;
+    } else { // the bit is set
+      rets[1] ^= num;
+    }
+  }
+
+  return rets;
+}
+
 
 
 int main() {

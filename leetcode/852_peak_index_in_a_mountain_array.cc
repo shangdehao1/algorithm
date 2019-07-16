@@ -23,77 +23,67 @@
  * 
 */
 
+#include "common.h"
 
 
-class Solution {
-public:
-    int peakIndexInMountainArray(vector<int>& A) {
-
-        for(int i = 0; i < A.size(); i++ ){
-            if(i == (A.size() - 1)) {
-                return i;
-            }
-            if(A[i] > A[i+1]) {
-               return i; 
-            }
-        }
-    }
-};
 
 
-class Solution {
-public:
-    int binary_search(vector<int> &A, int front, int end) {
-        if ((end - front)  < 2) return 0;
-
-        int peak = (end - front)/2 + front;
-
-        if (A.at(peak-1) < A.at(peak) && A.at(peak) > A.at(peak+1)) {
-            return peak;
-        }
-
-        if (A.at(peak-1) < A.at(peak) && A.at(peak) < A.at(peak+1) ) {
-            return binary_search(A, peak, A.size()-1);
-        }
-
-        return binary_search(A, front, peak);
-    }
-
-    int peakIndexInMountainArray(vector<int>& A) {
-        if (A.size() < 3) return 0; 
-        return binary_search(A, 0, A.size()-1);
-    }
-};
+// ================ binary search ===================
 
 namespace method1 {
 
-int binary_search(vector<int>& A, int left, int right) {
-  if (right - left < 2) {
-    return -1;
+int peakIndexInMountainArray(vector<int>& A) {
+  int left = 0; 
+  int right = A.size() - 1;
+
+  while ((right - left) > 1) {
+    int mid = (left + right) >> 1;
+
+    if ((A[mid - 1] < A[mid]) && (A[mid] > A[mid + 1])) { 
+      return mid;
+    } else if (A[mid - 1] > A[mid] && A[mid + 1] < A[mid]) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
+    }
   }
+  assert((right - left) <= 1);
 
-  int index = (right + left) / 2;
-
-  if (A[index - 1] < A[index] && A[index] > A[index + 1]) {
-    return index;
-  }
-
-  if (A[index - 1] < A[index] && A[index] < A[index + 1]) {
-    return binary_search(A, index, right);
-  }
-
-  return binary_search(A, left, index);
+  return A[left] > A[right] ? left : right;
 }
 
+}
+
+namespace method2 {
+
+int binary_search(const vector<int>& data, int left, int right) {
+
+  if (right - left < 1) {
+    return data[left] > data[right] ? left : right;
+  }
+
+  int mid = (left + right) >> 1;
+  if (data[mid - 1] < data[mid] && data[mid] > data[mid + 1]) {
+    return mid;
+  }
+
+  if (data[mid - 1] < data[mid] && data[mid] < data[mid + 1]) {
+    return binary_search(data, mid + 1, right);
+  }
+
+  return binary_search(data, left, mid - 1);
+}
 
 int peakIndexInMountainArray(vector<int>& A) {
-  if (A.size() < 3) {
-    return -2;
-  }
-  return binary_search(A, 0, A.size() - 1); 
+  return binary_search(A, 0, A.size() - 1);
 }
 
 }
+
+
+
+
+// ======================================
 
 int main() {
     return 0;

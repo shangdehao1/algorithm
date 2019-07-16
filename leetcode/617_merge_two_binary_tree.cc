@@ -25,17 +25,17 @@ Merged tree:
 */
 
 
- struct TreeNode {
-    int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- };
+struct TreeNode {
+  int val;
+  TreeNode *left;
+  TreeNode *right;
+  TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+};
 
 // nice implement by dehao :)
 
 TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
-   if(t1 == nullptr && t2 == nullptr) {
+   if (t1 == nullptr && t2 == nullptr) {
      return nullptr;
    }     
 

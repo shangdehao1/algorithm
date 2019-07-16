@@ -13,26 +13,24 @@
 
 #include "common.h"
 
+
 ListNode* removeElements(ListNode* head, int val) 
-{
-  auto remove_element_using_last_point = [] (ListNode* last_node) {
-    assert(last_node->next != nullptr);
-    //delete last_node->next; // should not delete this element at leetcode environment.
-    last_node->next = last_node->next->next;
-  };
+  ListNode node(1);
+  node.next = head;
 
-  ListNode dummy(INT_MIN);
-  dummy.next = head;
-  ListNode* index = &dummy;
+  head = &node;
 
-  while (index->next != nullptr) {
-    if (index->next->val == val) {
-      remove_element_using_last_point(index);
+  while (head->next != nullptr) {
+    if (head->next->val == val) {
+      head->next = head->next->next;
     } else {
-      index = index->next;
+      head = head->next;
     }
   }
 
-  return dummy.next;
+  return node.next;
 }
+
+
+
 

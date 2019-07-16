@@ -48,6 +48,8 @@ Notes:
 
 using namespace std;
 
+// TODO better method ???
+
 class Solution {
 public:
     vector<vector<int>> flipAndInvertImage(vector<vector<int>>& A) {

@@ -48,8 +48,6 @@ vector<int> sortArrayByParity(vector<int>& A) {
     if((A[left] & 1) == 1 && (A[right] & 1) == 0) {
       swap(A[left++], A[right--]);
     }
-    print_output(A);
-  
   }
   return A;
 }

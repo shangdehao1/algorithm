@@ -26,7 +26,6 @@
 using namespace std;
 
 
-/*
 struct TreeNode {
   int val;
   TreeNode *left;
@@ -53,6 +52,5 @@ void output_container(T& data, string information = "") {
 
   std::cout << endl;
 }
-*/
 
 #endif

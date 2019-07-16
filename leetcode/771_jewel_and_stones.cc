@@ -27,8 +27,8 @@ namespace method1 {
 
 int numJewelsInStones(string J, string S) {
   uint64_t index = 0;
-  for(auto temp : S) {
-    if(J.find(temp) != string::npos) {
+  for (auto temp : S) {
+    if (J.find(temp) != string::npos) {
       index++;
     }
   }
@@ -39,16 +39,16 @@ int numJewelsInStones(string J, string S) {
 
 namespace method2 {
 
-  int numJewelsInStones(string J, string S) {
-    int result = 0;
-    unordered_set<char> map(J.begin(), J.end());
-    for (auto temp : S) {
-      if(map.find(temp) != map.end()) {
-        result++;
-      }
+int numJewelsInStones(string J, string S) {
+  int result = 0;
+  unordered_set<char> map(J.begin(), J.end());
+  for (auto temp : S) {
+    if(map.find(temp) != map.end()) {
+      result++;
     }
-    return result;
   }
+  return result;
+}
 
 }
 

@@ -35,7 +35,7 @@
 
 #include "common.h"
 
-// general method
+// depth search method
 namespace method3 {
 
 void search(TreeNode* root, vector<int>& data) {
@@ -69,6 +69,16 @@ bool findTarget(TreeNode* root, int k) {
 
 
 } // namespace 
+
+namespace stack_method {
+
+
+bool findTarget(TreeNode* root, int k) {
+   // TODO stack
+}
+
+
+}
 
 
 // =============== beautiful solution ========================================

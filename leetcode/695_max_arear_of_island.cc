@@ -75,3 +75,42 @@ int maxAreaOfIsland(vector<vector<int>>& grid) {
     }
     return results;
 }
+
+
+
+
+// depth search method 
+
+namespace depth_search {
+
+void depth_search(vector<vector<int>>& grid, int x, int y, int& results) {
+  if (x >= grid.size() || y >=grid[0].size() || grid[x][y] != 1) return;
+  
+  results++;
+  grid[x][y] = 2;
+  depth_search(grid, x - 1, y, results);
+  depth_search(grid, x + 1, y, results);
+  depth_search(grid, x, y - 1, results);
+  depth_search(grid, x, y + 1, results);
+}
+
+
+
+int maxAreaOfIsland(vector<vector<int>>& grid) {
+  int result = 0;
+  for (int i = 0; i < grid.size(); i++) {
+    for (int j = 0; j < grid[0].size(); j++) {
+      int temp_ret = 0;
+      depth_search(grid, i, j, temp_ret);
+      result = temp_ret > result ? temp_ret : result;
+    }
+  }
+  return result;
+}
+
+
+
+
+
+}
+

@@ -215,8 +215,6 @@ void heap_adjust(vector<int>& data, int first, int last) {
   data[first] = temp;
 }
 
-
-
 void heap_sort(vector<int>& data) {
   for (int i = data.size() / 2 - 1; i >= 0; i--) {
     heap_adjust(data, i, data.size() - 1); 

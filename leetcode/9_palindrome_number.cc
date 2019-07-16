@@ -44,7 +44,7 @@ bool isPalindrome(int x) {
   int right = digits.size() - 1;
 
   while (left < right) {
-    if (digits[left--] != digits[right--]) {
+    if (digits[left++] != digits[right--]) {
       return false;
     }
   }

@@ -31,3 +31,28 @@ void moveZeroes(vector<int>& nums) {
 }
 
 
+
+// this method is very nice, but i still don't know how to maintain relative orders.
+void moveZeroes(vector<int>& nums) {
+  if (nums.size() < 2) return;
+
+  int left = 0;
+  int right = nums.size() - 1;
+
+  while (left < right) {
+    while (left < right && nums[left] != 0) {
+      left++;
+    } 
+    
+    while (left < right && nums[right] == 0) {
+      right--;
+    }
+
+    if (nums[left] == 0 && nums[right] != 0) {
+      swap(nums[left++], nums[right--]);
+    }
+  }
+}
+
+
+

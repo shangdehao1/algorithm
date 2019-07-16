@@ -9,9 +9,6 @@ using namespace std;
 
 namespace test_class {
   class copy_class {
-    
-
-
   };
 };
 
@@ -70,7 +67,6 @@ void test_initializer_list()
     assert(temp.zz == 3);
   
   }
-
 
 }
 
@@ -244,7 +240,6 @@ void test_final()
 void test_override () 
 {
   {
-
     class parent {
       public: 
         virtual string get_name() { return "i am parent class"; }
@@ -276,6 +271,7 @@ void test_directly_init_class_data_member()
 
   //  if there is initial action at initialization list, will just use this. 
   //  if there don't exist initial action at initialization list, will just use directly initial action.
+
   {
   
     class data_member {
@@ -407,7 +403,6 @@ int main() {
   test_override();
   test_directly_init_class_data_member();
   test_default_and_delete();
-  
   test_constexpr();
   test_lambda_and_function();
 

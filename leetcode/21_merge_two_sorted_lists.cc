@@ -80,6 +80,30 @@ ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
 } // namespace
 
 
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) 
+  ListNode node;
+  ListNode* ptr = &node;
+
+  while (l1 != nullptr && l2 != nullptr) {
+    if (l1->val <= l2->val) {
+      ptr->next = l1;
+      l1 = l1->next;
+    } else {
+      ptr->next = l2;
+      l2 = l2->next;
+    }
+    ptr = ptr->next;
+  }
+
+  if (l1 != nullptr) {
+    ptr->next = l1;
+  } else {
+    ptr->next = l2;
+  }
+
+  return node->next;
+}
+
 int main() {
 
   return 0;

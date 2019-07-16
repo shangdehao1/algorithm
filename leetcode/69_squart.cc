@@ -24,39 +24,27 @@
 
 
 int mySqrt(int x) {
+  if (x < 2) return x;
+
+  int left = 1;
+  int right = x / 2; // it is more better to increase valid range
         
-  int left=1;
-        int right=x/2;
+  int last_mid = left; // more clear 
         
-        int last_mid;
-        
-        if (x<2) {
-            return x;
-        }
-        
-        while (left<=right) {
-            const int mid=left+(right-left )/2;
-            if (x/mid>mid) {
-                left=mid+1;
-                last_mid=mid;
-            } else if(x/mid <mid) {
-                right=mid-1;
-            }else{
-                return mid;
-            }
-        
-        }
-        return last_mid;
-        
-        
-        
-        
+  while (left <= right) {
+    const int mid = left + (right - left) / 2;
+    if (x / mid > mid) {
+      left = mid + 1;
+      last_mid = mid;
+    } else if(x / mid < mid) {
+      right = mid - 1;
+    } else {
+      return mid;
     }
+  }
 
-
-
-
-
+  return last_mid;
+}
 
 
 
