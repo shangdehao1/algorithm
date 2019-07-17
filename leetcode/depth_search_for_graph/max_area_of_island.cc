@@ -1,1 +1,0 @@
-../695_max_arear_of_island.cc
