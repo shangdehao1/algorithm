@@ -2,7 +2,8 @@
 
 Layout 
 
-   libpmemobj defines a set of macros for convenient declaration of a pool's layout.  The layout declaration consists of declarations of a number of used types. 
+   libpmemobj defines a set of macros for convenient declaration of a pool's layout.  
+   The layout declaration consists of declarations of a number of used types. 
    The declared types will be assigned consecutive type numbers.
 
          POBJ_LAYOUT_BEGIN(layout)

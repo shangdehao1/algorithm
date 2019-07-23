@@ -3,18 +3,22 @@
  * 
  * Example 1:
  * 
- * Input: nums = [1,1,1,2,2,3], k = 2
- * Output: [1,2]
+ *      Input: nums = [1,1,1,2,2,3], k = 2
+ *      Output: [1,2]
+ * 
  * Example 2:
  * 
- * Input: nums = [1], k = 1
- * Output: [1]
+ *      Input: nums = [1], k = 1
+ *      Output: [1]
+ * 
  * Note:
  * 
  * You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
  * Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
  * 
  */
+
+#include <queue>
 
 #include "common.h"
 
@@ -25,13 +29,13 @@ namespace heap {
 
     vector<int> topKFrequent(vector<int>& nums, int k) 
     {
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> small_heap;
-
         unordered_map<int, int> hash_map;
 
         for (auto num : nums) { 
           hash_map[num]++;
         }
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> small_heap;
 
         for (auto kv : hash_map) {
           small_heap.push({kv.second, kv.first});
@@ -53,35 +57,6 @@ namespace heap {
 // ============== using selection algorithm ====================
 
 namespace method { 
-
-    void kselection(vector<pair<int, int>>& data, int first, int last, int k) 
-    {
-        if (first >= last) { 
-          return;
-        }
-
-        auto target = data[last];
-        int index = first;
-        int left = first;
-        while (index < last) {
-            if (data[index].second > target.second) {
-                swap(data[index++], data[left++]);
-            } else {
-                ++index;
-            }
-        }
-
-        swap(data[left], data[last]);
-        int num = left - first + 1;
-        if (num == k) {
-          return;
-        } else if (num < k) {
-            kselection(data, left + 1, last, k - num);
-        } else {
-            kselection(data, first, left - 1, k);
-        }
-    }
-
 
     void kselection(vector<pair<int, int>>& data, int first, int last, int k)
     {
@@ -118,12 +93,13 @@ namespace method {
         }
     }
 
-
     vector<int> topKFrequent(vector<int>& nums, int k) 
     {
-        vector<int> result;
-        if (!nums.size()) return result;
+        if (!nums.size()) {
+          return {};
+        }
 
+        vector<int> result;
         unordered_map<int, int> hash_map;
         for (auto num : nums) { 
           hash_map[num]++;
@@ -137,7 +113,7 @@ namespace method {
         kselection(num_with_cnt, 0, num_with_cnt.size() - 1, k);
 
         for (int i = 0; i < k && i < num_with_cnt.size(); ++i) {
-            result.push_back(num_with_cnt[i].first);
+          result.push_back(num_with_cnt[i].first);
         }
 
         return result;
@@ -145,9 +121,10 @@ namespace method {
 }
 
 
-namespace method3 {
+namespace bucket_sort_method {
 
-    vector<int> topKFrequent(vector<int>& nums, int k) {
+    vector<int> topKFrequent(vector<int>& nums, int k) 
+    {
         if (nums.empty()) {
           return {};
         }

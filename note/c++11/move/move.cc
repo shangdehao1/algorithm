@@ -1,4 +1,6 @@
-#include "../../leetcode/common.h"
+//#include "../../leetcode/common.h"
+#include <iostream>
+#include <vector>
 
 
 namespace dehao_move {

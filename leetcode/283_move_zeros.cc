@@ -14,6 +14,7 @@
 
 
 
+namespace stupid_method {
 
 void moveZeroes(vector<int>& nums) {
 
@@ -28,6 +29,8 @@ void moveZeroes(vector<int>& nums) {
   while(index < nums.size()) {
     nums[index++] = 0; 
   }
+}
+
 }
 
 
@@ -52,6 +55,18 @@ void moveZeroes(vector<int>& nums) {
       swap(nums[left++], nums[right--]);
     }
   }
+  
+}
+
+
+int main() {
+
+  vector<int> test1{1,2,0,0,2,0,1,0,44,0,0};
+  vector<int> result1{1,2,2,1,44,0,0,0,0,0,0};
+  
+
+
+  return 0;
 }
 
 
