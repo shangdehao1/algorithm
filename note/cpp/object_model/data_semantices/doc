@@ -1,0 +1,260 @@
+
+Each class object, then, is exactly the size necessary to contain the nonstatic data members of its class.
+This size may at times surprise you as being larger than necessary. This girth comes about in two ways:
+
+==>  1. Additional data members added by the compilation system to support some language functionality (primarily the virtuals)
+==>  2. Alignment requirements on the data members and data structures as a whole
+
+
+========================= the binding of a data member  =====================================
+
+ 
+1:  the analysis of the member function's body is delayed until the entire class declaration is seen. 
+    Thus the binding of a data member within the body of an inline member function does not occur until after the entire class declaration is seen.
+  
+2:  This is not true of the argument list of the member function, however. 
+    Names within the argument list are still resolved in place at the point they are first encountered. 
+  
+3:  This aspect of the language still requires the general defensive programming style of always placing nested type declarations 
+    at the beginning of the class.
+
+
+========================= data member layout ===================================
+
+non-static data member 
+
+  1 : the nonstatic data members are set down in the order of their declaration within each class object (any intervening static data members are ignored). 
+
+  2 : The Standard just require that later member have more higher address within class object, and don't require that data member are set down contiguously.
+
+  3 : there are two kinds of data between the declared members as following : 
+        - padding  
+           1) for align 
+           2) for sub-object compatibility.
+        - the compiler may synthesize one or more additional internal data members in support of the Object Model, for example vptr. 
+
+static data member
+
+  1 : The static data members are stored in the program's data segment independent of individual class objects.
+
+
+======================= access of a data member ================================
+
+static data member
+
+  1: static data members are literally lifted out of their class, and treated as if each were declared as a global variable (but with visibility limited to the scope of the class). 
+
+  2: single instance of each class static data member is stored within the data segment of the program. 
+     Each reference to the static member is internally translated to be a direct reference of that single extern instance.
+     the access of a static data member through the member selection operators is a syntactic convenience only
+      For example
+          origin.chunkSize == 250; ===========>>>>>> Point3d::chunkSize == 250;
+          pt->chunkSize == 250;    ===========>>>>>> Point3d::chunkSize == 250;
+
+  3: what if chunkSize were an inherited member of a complex inheritance hierarchy ?  it doesn't  matter, its access is direct....
+
+  4: Taking the address of a static data member yields an ordinary pointer of its data type, not a pointer to class member
+
+  5: If two classes each declare a static member freeList, then placing both of them in the program data segment is going to result in a name conflict. 
+     The compiler resolves this by internally encoding the naming.
+  
+
+non-static data member
+
+  1: nonstatic data members are stored directly within each class object and cannot be accessed except through an explicit or implicit class object. 
+
+  2: an implicit class object is present by "this" pointer whenever the programmer directly accesses a nonstatic data member within a member function
+
+  3: access of a non-static data member requires : 
+      -  the begining address of the class object 
+      -  offset position of the data member
+      -  addtion : &object.data = &object + &CLASS::data
+
+  4: the offset of each non-static data member is known at compiler time. 
+
+============================= inheritance and the data member =============================
+
+  1: Under the C++ inheritance model, a derived class object is represented as the concatenation of its members with those of its base class(es). 
+
+  2: The actual ordering of the derived and base class parts is left unspecified by the Standard. 
+
+  3: In theory, a compiler is free to place either the base or the derived part first in the derived class object. 
+     In practice, the base class members always appear first, except in the case of a virtual base class.
+
+
+inheritance without polymorphism
+
+  1: In general, concrete inheritance adds no space or access-time overhead to the representation.
+
+  2: What are the possible pitfalls of transforming two independent classes into a type/subtype relationship through inheritance? 
+      - A naive design might, in fact, double the number of function calls to perform the same operations
+      - A second possible pitfall in factoring a class into a two-level or deeper hierarchy is a possible bloating of the space necessary to represent the abstraction as a class hierarchy. 
+          The issue is the language guarantee of the integrity of the base class subobject within the derived class.
+  
+
+      class Concrete {            --------------                                              
+        public:                   |            |          
+          // .....                |    val     | 4                 
+                                  |            |                  
+        private:                  |------------|                                    
+          int val;                |    c1      | 1                                 
+          char c1;                |------------|                     
+          char c2;                |    c2      | 1                 
+          char c3;                |------------|              
+       };                         |    c3      | 1                         
+                                  |------------|                                      
+                                  |  padding   | 1                 
+                                  --------------                                      
+  
+        class Concrete1 {     class Concrete2 : public Concrete1 {        class Concrete3 : public Concrete2 {
+          int val;              char c2;                                    char c3;
+          char c1;            };                                           };
+        };
+
+
+
+
+           --------------   ---->    --------------   --------->     --------------                                              
+           |            |            |            |                  |            | 
+           |    val  4  |            |            |                  |            | 
+           |            |            |            |                  |            |   
+           |------------|            |------------|                  |------------|                                    
+           |    c1   1  |            |            |                  |            |                     
+           |------------|            |            |                  |            |        
+           |            |            |            |                  |            |             
+           | padding 3  |            |            |                  |            |                         
+           |            |            |            |                  |            |     
+           --------------   ---->    --------------                  --------------                          
+                                     |   c2   1   |                  |            |                                 
+                                     |------------|                  |            |                    
+                                     |            |                  |            |                                 
+                                     |  padding 3 |                  |            |                                 
+                                     |            |                  |            |                                 
+                                     --------------   --------->     -------------- 
+                                                                     |    c3   1  |                                 
+                                                                     |------------|                    
+                                                                     |            |                                 
+                                                                     | padding 3  |                                 
+                                                                     |            |                                 
+                                                                     -------------- 
+              
+
+
+
+  
+inheritance with polymorphism
+
+
+multiple inheritance 
+
+
+    point2d       
+      |
+      v
+    point3d  Vertex
+      |       |
+      v       v
+      vertex3d 
+
+
+    class Point2d {                class Point3d : public Point2d {
+     protected:                     protected:
+      float _x;                      float _z;
+      float _y;                     };
+    };
+
+    class Vertex {
+     protected:
+      Vertex *next;
+    };
+
+    class Vertex2d : public Point3d, public Vertex {
+     public:
+      //...
+     protected:
+      float _k;
+    };
+
+    
+
+
+
+              --------->   ---------------  <---------
+              |            |   _x        |           |         
+              |            |-------------|           |
+              |            |   _y        |           -- point2d       
+   point3d  ---            |-------------|           |
+              |            |   vptr      |           |         
+              |            |-------------|  <---------
+              |            |   _z        |                    
+              --------->   |-------------| <---------
+                           |   next      |          |          
+                           |-------------|          -- vertex                      
+                           |   vptr      |          |          
+                           |-------------| <---------                                
+                           |   _k        |                    
+                           ---------------                    
+
+
+
+============================== virtual inheritance  ================================
+
+      class Point2d {
+        protected:
+          float _x;
+          float _y;
+      };
+
+      class Vertex : public virtual Point2d {
+        protected:
+          Vertex *next;
+      };
+
+      class Point3d : public virtual Point2d {
+        protected:
+          float _z;
+      };
+
+      class Vertex3d : public Point3d, public Vertex {
+        protected:
+          float _k;
+      };
+
+
+
+                           ---------------  <---------
+                           |   _x        |           |         
+                           |-------------|           |
+                           |   _y        |           -- point2d       
+                           |-------------|           |
+                           |   vptr      |           |         
+                ------->   |-------------|  <---------
+                |          |   _z        |                    
+                |          |-------------| 
+     point3d  ---          | base offset |                    
+                |          |-------------| 
+                |          |   vptr      |                    
+                ------->   |-------------| <---------
+                           |   next      |          |          
+                           |-------------|          |                     
+                           | base offset |          --- vertex         
+                           |-------------|          |                               
+                           |   vptr      |          |          
+                           --------------- <---------                   
+                           |   _k        |                    
+                           ---------------                    
+
+
+
+
+
+
+
+pointer to data member
+ 
+
+
+
+
+
+

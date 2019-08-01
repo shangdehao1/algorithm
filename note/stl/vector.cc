@@ -2,6 +2,7 @@
 #include <vector>
 #include <assert.h>
 
+
 using namespace std;
 
 namespace testing_emplace_back {
@@ -56,14 +57,23 @@ void test_emplace_back() {
   }
   
 
-
 }
 
 
 
 
 
+
+
+
 int main() {
+
+  vector<int> data[3];
+
+  cout << data[0].size() << endl;
+  cout << data[1].size() << endl;
+  cout << data[2].size() << endl;
+
 
 
   test_emplace_back();

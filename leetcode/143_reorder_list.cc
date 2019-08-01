@@ -26,17 +26,18 @@ void reorderList(ListNode* head) {
     head2 = head2->next->next;
   }
 
-  ListNode* temp = head2->next;
-  head2->next = nullptr; 
+  ListNode* temp = head1->next;
+  head1->next = nullptr; 
   while (temp != nullptr) {
     auto next = temp->next;
-    temp->next = head2->next;
-    head2->next = temp;
+    temp->next = head1->next;
+    head1->next = temp;
     temp = next;
   }
 
-  temp = head2;
-  head2 = head2->next;
+  
+  temp = head1;
+  head2 = head1->next;
   temp->next = nullptr;
 
   head1 = dummy.next;
@@ -57,8 +58,7 @@ void reorderList(ListNode* head) {
   }
 
   head->next = nullptr;
-
-  return dummy.next;
+  head1 = dummy.next;
 }
 
 

@@ -13,6 +13,62 @@
  * const-object just can call const method, and forbid to call non-const method.
  */
 
+/*
+
+
+======================
+               
+    ----- variable -------> build-in variable 
+    |                  |      |
+    |                  |      ---> int / float / string
+    |                  |      |
+    |                  |      ---> pointer / referrence / array
+    |                  |
+    |                  |      
+    |                  ---> user-definition variable
+    |
+    |
+    ------ method ------> class method.
+    
+======================
+
+where
+  |
+  ---> global variable
+  |
+  ---> static global variable
+  | 
+  ---> parameter  
+  | 
+  ---> return value
+  |
+  ---> method of classs
+
+
+access 
+  |
+  ---> non-const variable can become const variable, but const can't become non-const
+        for example 
+           |
+           ---> non-const parameter can pass into const parameter, otherwise can't
+           |
+           ---> non-const-object can call const-method and non-const-method.
+                const-object just can call const-method.
+           
+          
+mutable 
+
+
+
+const-cast
+
+
+
+*/
+
+
+
+
 using namespace std;
 
 namespace dehao_const {
@@ -86,6 +142,5 @@ void test_const_class_method()
 
 
 int main() {
-
   test_const_class_method();
 }

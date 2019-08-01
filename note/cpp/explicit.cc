@@ -6,18 +6,17 @@
 using namespace std;
 
 
-class A
-{
+class A {
 public:
-    A() { 
+    A () { 
       a = "default-construction";
     }                
 
-    A(int temp) { 
+    A (int temp) { 
       a = "one-param-construction";
     }       
 
-    A(const A&  temp) {
+    A (const A&  temp) {
       a = "copy-construction";
     } 
 
@@ -45,6 +44,10 @@ void test_implicit() {
   temp_function(0);
 }
 
+
+// ==========================================
+
+
 class B 
 {
 public:
@@ -63,8 +66,8 @@ public:
     string b;
 };
 
-
-void test_explicit() {
+void test_explicit() 
+{
   B temp0;
 
   B temp1(0);
@@ -88,7 +91,6 @@ void test_explicit() {
   // temp_function(0);
 
   // TODO : how to call explicit function....
-
 }
 
 

@@ -78,9 +78,12 @@ void test_static_method_in_class () {
   test_static temp;
   temp.non_static_function_access_static_data_member("shangdehao");
   test_static::static_function_access_static_data_member("shangdehao");
+  temp.m_object;
 
 
 }
+
+
 
 
 

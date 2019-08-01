@@ -26,7 +26,6 @@ string reverseWords(string s) {
     left = right;
   }
 
-
   return s;
 }
 
