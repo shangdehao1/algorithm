@@ -20,11 +20,9 @@
 
 // cool !!!!!
 
-
 namespace method1 {
 
 };
-
 
 namespace method2 {
   

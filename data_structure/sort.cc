@@ -115,6 +115,7 @@ void bubble_sort(vector<int>& data) {
 
 // =====================
 
+
 void quick_sort_internal(vector<int>& data, int first, int last) 
 {
   if(first >= last) {
@@ -199,28 +200,34 @@ void heap_sort(vector<int>& data)
 
 
 void heap_adjust(vector<int>& data, int first, int last) {
-  int temp = data[first];
 
-  for (int i = first * 2; i <= last; i *= 2) {
-    if ((i + 1 <= last) && data[i] < data[i + 1]) 
-      i++;
-    
-    if (data[i] > temp) {
-      data[first] = data[i];
-      first = i;
+  int index = first;
+  int target = data[index];
+
+  for (int i = first*2; i <= last; i = 2*i) {
+    if (i < last && data[i] < data[i+1]) {
+      ++i;
+    }
+
+    if (data[i] > target) {
+      data[index] = data[i];
+      index = i;
     } else {
       break;
     }
   }
-  data[first] = temp;
+  data[index] = target;
 }
+
+
 
 void heap_sort(vector<int>& data) {
   for (int i = data.size() / 2 - 1; i >= 0; i--) {
-    heap_adjust(data, i, data.size() - 1); 
+    heap_adjust(data, i, data.size() - 1);
   }
+
   for (int i = data.size() - 1; i > 0; i--) {
-    std::swap(data[i], data[0]);
+    swap(data[i], data[0]);
     heap_adjust(data, 0, i - 1);
   }
 }

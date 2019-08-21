@@ -16,51 +16,49 @@
  * 
  * Note: 
  * You may assume k is always valid, 1 ≤ k ≤ array's length.
- * 
  */
 
+namespace pass_ac {
 
-int binary_search(const vector<int>& data, int first, int last, int k) {
-  if (first > last) return -1; // note !!!
+int binary_search(vector<int>& data, int first, int last, const int index) {
+  if (first > last) {
+    return -1;
+  }
 
   int left = first;
   int right = last;
-  int target = data[first];
+  int target = data[left];
 
   while (left < right) {
     while (left < right && target <= data[right]) right--;
-
-    if (left < right) {
-      data[left] = data[right];
-      left++;
-    }
+    if (left < right) data[left++] = data[right];
 
     while (left < right && data[left] <= target) left++;
-    if (left < right) {
-      data[right] = data[left];
-      right--;
-    }
+    if (left < right) data[right--] = data[left];
   }
 
   data[left] = target;
   
-  int index = left - first + 1;
-
-  if (index == k) {
-    return data[left];
-  } else if (index > k) {
-    return binary_search(data, first, left - 1, k);
+  if (left == index) {
+    return data[index];
+  } else if (index < left) {
+    return binary_search(data, first, left - 1, index);
   } else {
-    return binary_search(data, left + 1, last, k - index);
+    return binary_search(data, left + 1, last, index);
   }
 
   return -1;
 }
 
-
 int findKthLargest(vector<int>& nums, int k) {
-  
-  return binary_search(nums, 0, nums.size() - 1, nums.size() - k + 1);
+  return binary_search(nums, 0, nums.size() - 1, nums.size() - k);
 }
+
+}
+
+
+
+
+
 
 

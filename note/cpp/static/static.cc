@@ -2,15 +2,12 @@
 #include <assert.h>
 #include <string>
 
-
 using namespace std;
-
-
-
 
 // construction : when first call lambda function, create static object.
 // destruction  : when main function exists, destruct static object.
-void test_static_variable_in_function() {
+void test_static_variable_in_function() 
+{
   {
     class test_static {
      public:
@@ -33,17 +30,19 @@ void test_static_variable_in_function() {
 
 // =========================================
 
-class static_object {
+class static_object 
+{
 public:
   static_object()  {std::cout << "static_object : construction..." << std::endl; }
   ~static_object() {std::cout << "static_object : destruction...." << std::endl; }
   string m_index;
 };
 
-// how do data member construct or destruct  data member ?
+// how do data member construct or destruct data member ?
 // create : call static method at the first time calling.
 
-class test_static {
+class test_static 
+{
 public:
   test_static() {}
   ~test_static() {}
@@ -71,22 +70,12 @@ public:
 
 static_object test_static::m_object;
 
-
-
-
 void test_static_method_in_class () {
   test_static temp;
   temp.non_static_function_access_static_data_member("shangdehao");
   test_static::static_function_access_static_data_member("shangdehao");
-  temp.m_object;
-
 
 }
-
-
-
-
-
 
 
 int main () {

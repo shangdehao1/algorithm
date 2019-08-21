@@ -29,7 +29,6 @@ void test_exclusive_lock() {
       }    
   };
 
-
   {
     std::thread thread1([thread_function_lock](){ thread_function_lock(1000, true);});
     std::thread thread2([thread_function_lock](){ thread_function_lock(1000, false);});

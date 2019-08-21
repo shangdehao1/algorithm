@@ -25,10 +25,10 @@
  * Input: Binary tree: [1,2,3,null,4]
  * 
  *        1
- *      /   \
- *     2     3
- *      \
- *       4 
+ *       / \
+ *      2   3
+ *       \
+ *        4 
  * 
  * Output: "1(2()(4))(3)"
  * 
@@ -42,24 +42,8 @@ string tree2str(TreeNode* t) {
 
   if (t == nullptr) return "";
 
-/*
-  if (t->left == nullptr && t->right == nullptr) {
-    return to_string(t->val); 
-  }
-
-  if (t->left != nullptr && t->right == nullptr) {
-    return to_string(t->val) + "(" + tree2str(t->left) + ")";
-  }
-
-  // this if-sentence can be deleted 
-  if (t->left == nullptr && t->right != nullptr) {
-    return to_string(t->val) + "()" + "(" + tree2str(t->right) + ")";
-  }
-*/
-
   return to_string(t->val) + "(" + tree2str(t->left) + ")" + "(" + tree2str(t->right) + ")";
 }
-
 
 string tree2str(TreeNode* t) {
   if (t == nullptr) return "";
@@ -67,6 +51,19 @@ string tree2str(TreeNode* t) {
   return tree2str(t) + "(" + tree2str(t->left) + ")(" + tree2str(t->right) + ")";
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -34,6 +34,7 @@ void moveZeroes(vector<int>& nums) {
 }
 
 
+namespace nice_method {
 
 // this method is very nice, but i still don't know how to maintain relative orders.
 void moveZeroes(vector<int>& nums) {
@@ -56,6 +57,8 @@ void moveZeroes(vector<int>& nums) {
     }
   }
   
+}
+
 }
 
 

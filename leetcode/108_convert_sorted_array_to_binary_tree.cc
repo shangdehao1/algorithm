@@ -20,6 +20,8 @@
 
 #include "common.h"
 
+namespace pass_ac {
+
 TreeNode* traverse_create_bst(vector<int>& data, int left, int right) {
   if (left > right) {
     return nullptr;
@@ -39,6 +41,7 @@ TreeNode* sortedArrayToBST(vector<int>& nums) {
   return traverse_create_bst(data, 0, nums.size() - 1);
 }
 
+}
 
 
 

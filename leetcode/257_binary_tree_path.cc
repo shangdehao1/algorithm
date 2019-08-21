@@ -8,10 +8,10 @@
  * Input:
  * 
  *    1
- *  /   \
- * 2     3
- *  \
- *   5
+ *   / \
+ *  2   3
+ *   \
+ *    5
  * 
  * Output: ["1->2->5", "1->3"]
  * 
@@ -27,6 +27,7 @@ void depth_search(TreeNode* node, string path, vector<string>& result) {
     return;
   }
 
+  // note the first element !!!!
   path += (path.size() == 0 ? (to_string(node->val)) : ("->" + to_string(node->val)));  
 
   if (node->left == nullptr && node->right == nullptr) {
@@ -46,6 +47,9 @@ vector<string> binaryTreePaths(TreeNode* root) {
 }
 
 }
+
+
+
 
 
 int main() {return 0;}

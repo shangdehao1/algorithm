@@ -19,14 +19,12 @@
  */
 
 #include <queue>
-
 #include "common.h"
 
 
 // ============ using heap ======================
 
 namespace heap {
-
     vector<int> topKFrequent(vector<int>& nums, int k) 
     {
         unordered_map<int, int> hash_map;
@@ -39,7 +37,7 @@ namespace heap {
 
         for (auto kv : hash_map) {
           small_heap.push({kv.second, kv.first});
-          while (small_heap.size() > k) small_heap.pop();
+          if (small_heap.size() > k) small_heap.pop();
         }
 
         vector<int> result;
@@ -50,7 +48,6 @@ namespace heap {
 
         return result;
     }
-
 }
 
 
@@ -58,7 +55,7 @@ namespace heap {
 
 namespace method { 
 
-    void kselection(vector<pair<int, int>>& data, int first, int last, int k)
+    void kselection(vector<pair<int, int>>& data, int first, int last, const int k)
     {
         if (first >= last) {
           return;
@@ -83,11 +80,10 @@ namespace method {
         }
         data[left] = target;
 
-        int num = left - first + 1;
-        if (num == k) {
-          return;
-        } else if (num < k) {
-            kselection(data, left + 1, last, k - num);
+        if (left == k) {
+            return;
+        } else if (left < k) {
+            kselection(data, left + 1, last, k);
         } else {
             kselection(data, first, left - 1, k);
         }
@@ -110,7 +106,7 @@ namespace method {
           num_with_cnt.push_back({kv.first, kv.second});
         }
 
-        kselection(num_with_cnt, 0, num_with_cnt.size() - 1, k);
+        kselection(num_with_cnt, 0, num_with_cnt.size() - 1, k - 1);
 
         for (int i = 0; i < k && i < num_with_cnt.size(); ++i) {
           result.push_back(num_with_cnt[i].first);
@@ -123,8 +119,7 @@ namespace method {
 
 namespace bucket_sort_method {
 
-    vector<int> topKFrequent(vector<int>& nums, int k) 
-    {
+    vector<int> topKFrequent(vector<int>& nums, int k) {
         if (nums.empty()) {
           return {};
         }
@@ -132,8 +127,8 @@ namespace bucket_sort_method {
         vector<int> result;
 
         unordered_map<int, int> hash_map;
-        for (auto num : nums) {
-          hash_map[num]++;
+        for (auto index : nums) {
+          hash_map[index]++;
         }
 
         vector<vector<int>> bucket(nums.size() + 1);

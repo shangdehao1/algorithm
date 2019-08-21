@@ -33,12 +33,6 @@
  */
 
 
-
-
-
-
-
-
 bool binary_search(TreeNode* root, vector<int>& result) {
   if (root == nullptr) {
     return true;
@@ -58,7 +52,6 @@ bool binary_search(TreeNode* root, vector<int>& result) {
     return false;
   }
 }
-
 
 bool isValidBST(TreeNode* root) {
   vector<int> ret;

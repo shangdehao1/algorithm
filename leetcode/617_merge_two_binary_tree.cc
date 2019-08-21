@@ -13,6 +13,7 @@ Input:
         3   2                     1   3                        
        /                           \   \
       5                             4   7                  
+
 Output: 
 
 Merged tree:
@@ -61,6 +62,7 @@ TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
 
   return root;
 }
+
 
 
 int main() {

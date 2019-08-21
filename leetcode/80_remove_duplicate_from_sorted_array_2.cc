@@ -71,9 +71,7 @@ int remove_duplicate(vector<int>& nums, int k) {
 }
 
 
-
 int remove_deplicate(vector<int>& nums, int k) {
-  
   return remove_duplicate(nums, k);
 }
 

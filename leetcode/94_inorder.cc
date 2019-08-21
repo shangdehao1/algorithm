@@ -99,37 +99,15 @@ vector<int> inorderTraversal(TreeNode *root) {
 }
 
 
+// ==========================================================
+// ==========================================================
+// ==========================================================
+// ==========================================================
+// ==========================================================
 
 
 
 
-
-
-
-
-vector<int> inorderTraversal(TreeNode* root) {
-  vector<int> result;
-  TreeNode* prev = nullptr;
-  TreeNode* curr = root;
-  stach<TreeNode*> path;
-
-  while (!path.empty() || curr != nullptr) {
-    if (curr != nullptr) {
-      while (curr != nullptr) {
-        path.push(curr);
-        curr = curr->left;
-      }
-    } else {
-      curr = path.top();
-      path.pop();
-      result.push(curr->val); 
-      curr = curr->right;
-    }
-  }
-
-  return result;
-
-}
 
 
 

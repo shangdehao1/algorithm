@@ -54,6 +54,25 @@ vector<int> sortArrayByParity(vector<int>& A) {
 
 }
 
+vector<int> sortArrayByParity(vector<int>& data) {
+
+  int left = 0;
+  int right = data.size() - 1;
+
+  while (left < right) {
+    while (left < right && data[left] & 1 == 0) left++;
+    while (left < right && data[right] & 1 != 0) right--;
+
+    if ((data[left] & 1) == 0 && (data[right] & 1) == 1) {
+      swap(data[left++], data[right--]);
+    }
+  }
+
+  return data;
+}
+
+
+
 
 int main() {
 

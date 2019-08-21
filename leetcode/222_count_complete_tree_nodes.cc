@@ -21,6 +21,7 @@
 
 
 
+namespace pass_ac {
 
 
 int countNodes(TreeNode* root) {
@@ -48,6 +49,10 @@ int countNodes(TreeNode* root) {
         
   return 1 + countNodes(root->left) + countNodes(root->right);
 }
+
+
+} // pass ac
+
 
 
 

@@ -61,7 +61,6 @@ int kthSmallest(TreeNode* root, int& k) {
 }
 
 
-// TODO TODO TODO TODO 
 int kthSmallest(TreeNode* root, int& k) {
   if (root) {
     int x = kthSmallest(root->left, k);

@@ -50,7 +50,6 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
   sort(nums1.begin(), nums1.end());
 }
 
-
 }
 
 
@@ -59,8 +58,8 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
 
 int main() {
 
-  vector<int> temp1{1,2,3,0,0,0};
-  vector<int> temp2{2,5,6};
+  vector<int> temp1{1, 2, 3, 0, 0,0};
+  vector<int> temp2{2, 5, 6};
 
   merge(temp1, 3, temp2, 3); 
 

@@ -24,6 +24,7 @@
  * 
  */
 
+namespace pass_ac {
 
 TreeNode* invertTree(TreeNode* root) {
   if(root == nullptr) return;
@@ -35,6 +36,21 @@ TreeNode* invertTree(TreeNode* root) {
   return root;
 }
 
+}
+
+
+
+
+TreeNode* invertTree(TreeNode* root) {
+  if (!root) {
+    return root;
+  }
+  
+  swap(root->left, root->right);
+  invertTree(root->left);
+  invertTree(root->right);
+  return root;
+}
 
 
 

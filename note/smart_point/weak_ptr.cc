@@ -71,11 +71,11 @@ void test_weak_ptr_basic_method ()
       assert(yy.use_count() == 1);
     }
 
-
     // lock method will return shared_ptr which will have ownship for resources.
     {
       shared_ptr<test_weak> temp = make_shared<test_weak>("shangdehao");
       weak_ptr<test_weak> xx(temp);
+
       shared_ptr<test_weak> yy = xx.lock();
       
       assert(yy != nullptr);
@@ -113,7 +113,6 @@ void test_weak_ptr_basic_method ()
 
 void test_weak_situation() 
 {
-
   {
     class test_shared_b;
     class test_shared_a
@@ -187,7 +186,6 @@ void test_weak_situation()
     assert(check_a.use_count() == 0);
     assert(check_b.use_count() == 0);
   }
-
 }
 
 int main() {
@@ -197,3 +195,7 @@ int main() {
 
   return 0;
 }
+
+
+
+

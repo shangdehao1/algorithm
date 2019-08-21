@@ -5,116 +5,6 @@
 #include "mutex.h"
 #include "../context/context.h"
 
-/*
-
-  pthread_cond_wait have the following steps : 
-    - 在调用pthread_cond_wait之前，参数mutex必须被事先锁住。          
-    - pthread_cond_wait内部：对参数解锁，然后等待条件变量被激活
-    - pthread_cond_wait内部：一旦条件变量被激活，当前线程将被激活，对参数上锁，然后从pthread_cond_t调用退出。
-
- >>>> missing wakeup signal -- why calling pthread_cond_singal must need to locking mutex.
-
-    - the first situation   
-
-            Process A                             Process B
-            
-            pthread_mutex_lock(&mutex);
-            while (condition == FALSE) {
-            
-                                                  condition = TRUE;
-                                                  pthread_cond_signal(&cond);
-            
-              pthread_cond_wait(&cond, &mutex);
-            }
-            
-            pthread_mutex_unlock(&mutex)
-
-         !!! The condition is now TRUE, but Process A is stuck waiting on the condition variable - it missed the wakeup signal. 
-             If we alter Process B to lock the mutex:
-
-            Process A                             Process B
-            
-            pthread_mutex_lock(&mutex);
-              while (condition == FALSE) {
-              pthread_cond_wait(&cond, &mutex);
-            }
-            pthread_mutex_unlock(&mutex)
-
-                                                  pthread_mutex_lock(&mutex);
-                                                  condition = TRUE;
-                                                  pthread_cond_signal(&cond);
-                                                  pthread_mutex_unlock(&mutex)
-            
-
-
- >>>>> spurious wakeup -- 
-
-    - the first situation : 
-
-            Process A                             Process B
-
-                                                  pthread_mutex_lock(&mutex);
-                                                  pthread_cond_signal(&cond); // missing
-                                                  pthread_mutex_unlock(&mutex)
-
-            pthread_mutex_lock(&mutex);
-            pthread_cond_wait(&cond, &mutex);
-            pthread_mutex_unlock(&mutex)
-
-        !!!! the signal from process B will do nothing, but process A will forever block.
-
-
-    - the second situation 
-
-  
-
-            Process A                             Process B                              Process C
-        
-        phtread_mutex_lock(&mutex)
-        phtread_cond_wait(&cond, &mutex)
-                                            pthread_mutex_lock(&mutex)
-                                            pthread_cond_wait(&cond, &mutex)
-                                                                                      pthread_mutex_lock(&mutex)
-                                                                                      m_message_queue(msg);
-                                                                                      pthread_cond_boardcast(&cond, &mutex)
-                                                                                      pthread_mutex_unlock(&mutex)
-        msg = m_message_queue.front();
-        msg = m_message_queue.pop_front();
-        pthread_mutex_unlock(&mutex)
-                                            msg = m_message_queue.front(); // !!!!!!!
-                                            msg = m_message_queue.pop_front();
-                                            pthread_mutex_unlock(&mutex)
-
-
-
-
-        segment fault.
-
-
-    - the three situation
-      
-        x is global variable....
-
-            Process A                             Process B                              Process C
-    
-         while(0 < x < 5) 
-           pthread_cond_wait
-                                              while(10 < x < 15) 
-                                                pthread_cond_wait
-
-                                                                                           x = 0;
-                                                                                        pthread_cond_singnal()
-                                                                                           x = 2;
-                                                                                        pthread_cond_singnal()
-                                                                                           x = 5;
-                                                                                        pthread_cond_singnal()
-                                                                                           x = 10;
-                                                                                        pthread_cond_singnal()
-                                                                                           x = 12;
-                                                                                        pthread_cond_singnal()
-
-
-*/
 
 namespace dehao {
 
@@ -317,6 +207,116 @@ public:
 
 #endif
 
+/*
+
+  pthread_cond_wait have the following steps : 
+    - 在调用pthread_cond_wait之前，参数mutex必须被事先锁住。          
+    - pthread_cond_wait内部：对参数解锁，然后等待条件变量被激活
+    - pthread_cond_wait内部：一旦条件变量被激活，当前线程将被激活，对参数上锁，然后从pthread_cond_t调用退出。
+
+ >>>> missing wakeup signal -- why calling pthread_cond_singal must need to locking mutex.
+
+    - the first situation   
+
+            Process A                             Process B
+            
+            pthread_mutex_lock(&mutex);
+            while (condition == FALSE) {
+            
+                                                  condition = TRUE;
+                                                  pthread_cond_signal(&cond);
+            
+              pthread_cond_wait(&cond, &mutex);
+            }
+            
+            pthread_mutex_unlock(&mutex)
+
+         !!! The condition is now TRUE, but Process A is stuck waiting on the condition variable - it missed the wakeup signal. 
+             If we alter Process B to lock the mutex:
+
+            Process A                             Process B
+            
+            pthread_mutex_lock(&mutex);
+              while (condition == FALSE) {
+              pthread_cond_wait(&cond, &mutex);
+            }
+            pthread_mutex_unlock(&mutex)
+
+                                                  pthread_mutex_lock(&mutex);
+                                                  condition = TRUE;
+                                                  pthread_cond_signal(&cond);
+                                                  pthread_mutex_unlock(&mutex)
+            
+
+
+ >>>>> spurious wakeup -- 
+
+    - the first situation : 
+
+            Process A                             Process B
+
+                                                  pthread_mutex_lock(&mutex);
+                                                  pthread_cond_signal(&cond); // missing
+                                                  pthread_mutex_unlock(&mutex)
+
+            pthread_mutex_lock(&mutex);
+            pthread_cond_wait(&cond, &mutex);
+            pthread_mutex_unlock(&mutex)
+
+        !!!! the signal from process B will do nothing, but process A will forever block.
+
+
+    - the second situation 
+
+  
+
+            Process A                             Process B                              Process C
+        
+        phtread_mutex_lock(&mutex)
+        phtread_cond_wait(&cond, &mutex)
+                                            pthread_mutex_lock(&mutex)
+                                            pthread_cond_wait(&cond, &mutex)
+                                                                                      pthread_mutex_lock(&mutex)
+                                                                                      m_message_queue(msg);
+                                                                                      pthread_cond_boardcast(&cond, &mutex)
+                                                                                      pthread_mutex_unlock(&mutex)
+        msg = m_message_queue.front();
+        msg = m_message_queue.pop_front();
+        pthread_mutex_unlock(&mutex)
+                                            msg = m_message_queue.front(); // !!!!!!!
+                                            msg = m_message_queue.pop_front();
+                                            pthread_mutex_unlock(&mutex)
+
+
+
+
+        segment fault.
+
+
+    - the three situation
+      
+        x is global variable....
+
+            Process A                             Process B                              Process C
+    
+         while(0 < x < 5) 
+           pthread_cond_wait
+                                              while(10 < x < 15) 
+                                                pthread_cond_wait
+
+                                                                                           x = 0;
+                                                                                        pthread_cond_singnal()
+                                                                                           x = 2;
+                                                                                        pthread_cond_singnal()
+                                                                                           x = 5;
+                                                                                        pthread_cond_singnal()
+                                                                                           x = 10;
+                                                                                        pthread_cond_singnal()
+                                                                                           x = 12;
+                                                                                        pthread_cond_singnal()
+
+
+*/
 
 // back up 
 // https://www.zhihu.com/question/24116967

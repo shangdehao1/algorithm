@@ -15,8 +15,6 @@
 #include "common.h"
 
   
-// ----
-
 // orinial list : 1 --> 2 --> 3 --> 4 --> 5
 //
 //                    head   node
@@ -62,6 +60,28 @@ ListNode* reverseList(ListNode* head) {
 
 }
 
+
+
+ListNode* reverseList(ListNode* head) {
+  ListNode dummy(-1);
+  dummy.next = nullptr;
+
+  while(head != nullptr) {
+    auto next = head->next;
+    head->next = dummy.next;
+    dummy.next = head;
+    head = next;
+  }
+
+  return dummy.next;
+}
+
+
+
+
+ListNode* reverseList(ListNode* head) {
+
+}
 
 
 

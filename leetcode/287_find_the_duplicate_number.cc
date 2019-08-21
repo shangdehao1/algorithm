@@ -1,5 +1,4 @@
 /*
-
 Find the Duplicate Number
 
 Given an array nums containing n + 1 integers where each integer is between 1 and n (inclusive), 
@@ -21,7 +20,6 @@ You must use only constant, O(1) extra space.
 Your runtime complexity should be less than O(n*n).
 There is only one duplicate number in the array, but it could be repeated more than once.
 
-
 */
 
 namespace stupid_method {
@@ -37,7 +35,7 @@ int findDuplicate(vector<int>& nums) {
   return -1;    
 }
 
-}
+} // 
 
 
 

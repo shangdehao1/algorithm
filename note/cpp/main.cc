@@ -46,7 +46,7 @@ void test_initializer_list()
           std::vector<int> m_data;
       };
 
-      test_init_list temp{0,1,2,3,4,5};
+      test_init_list temp{0, 1, 2, 3, 4, 5};
 
       for (int i = 0; i < temp.m_data.size(); i++) {
         assert(i == temp.m_data[i]); 
@@ -61,7 +61,7 @@ void test_initializer_list()
       int xx, yy, zz;
     };
 
-    test_class temp{1,2,3};
+    test_class temp{1, 2, 3};
     assert(temp.xx == 1);
     assert(temp.yy == 2);
     assert(temp.zz == 3);
@@ -72,7 +72,7 @@ void test_initializer_list()
 
 // =========================================
 
-
+// c++11 perfectly support (auto + &)
 void test_auto () 
 {
   auto check_vector = [](vector<int>& data) {
@@ -84,7 +84,7 @@ void test_auto ()
   
   // auto default will copy function to create temp object.
   {
-    vector<int> temp{0,1,2,3,4,5,6};
+    vector<int> temp{0, 1, 2, 3, 4, 5, 6};
 
     // will call copy construction
     for (auto i : temp) {
@@ -104,12 +104,12 @@ void test_auto ()
 
 }
 
-
 // =======================================
 
 void test_enum() 
 {
   // the following code will lead to redeclaration
+  // compiler error : redeclaration of data_1
   {
     /*
     enum test_1 {
@@ -122,7 +122,6 @@ void test_enum()
       data_2
     };
     */
-
   }
 
   // using enum class to slove redeclaration
@@ -147,6 +146,8 @@ void test_enum()
   
     // different enum type can't operate !!!!
     // if (x == z) cout << "this sentence can't pass compiler..." << endl;
+
+    // perfect
     if (x == y) cout << "this sentencec can pss compiler..." << endl;
   }
 
@@ -163,33 +164,32 @@ void test_static_assert()
   // static_assert(sizeof(int) == 5);
 }
 
-
 // ===========================================
 
 void test_construction_call_each_other () 
 {
   // compared to init method, there are two good advantage as below : 
-  //  - init method : construction, then assign operation. for don't supprot assign object, this method don't work.
+  //  - init method : construction, then assign operation. 
+  //     if internal object don't supprot assignment, this method don't work.
   //  - For some specific data memeber, for refference or const data.
   //  - how to ensure just be called one time...
 
   {
     class test_class {
     public:
-      test_class() : test_class(1){output(0);}
-      test_class(int x) : test_class(x, 2) {output(1);}
-      test_class(int x, int y) : test_class(x, y, 3) {output(2);}
-      test_class(int x, int y, int z) : m_data_1(x), m_data_2(y), m_data_3(z){output(3);}
-
+      test_class() : test_class(1) { output(0); }
+      test_class(int x) : test_class(x, 2) { output(1); }
+      test_class(int x, int y) : test_class(x, y, 3) { output(2); }
+      test_class(int x, int y, int z) : m_data_1(x), m_data_2(y), m_data_3(z) { output(3); }
 
       void output(int i) {cout << "construction " << i << endl;}
+
       int m_data_1;
       int m_data_2;
       int m_data_3;
     };
 
     test_class temp;
-
   } 
 
 }
@@ -198,9 +198,8 @@ void test_construction_call_each_other ()
 
 void test_final() 
 {
-
   // finnal function can't be override.
-  // the below codes can't pass complier : error : overriding final function
+  // compiler error : overriding final function
   {
     /*
     class parent {
@@ -217,7 +216,7 @@ void test_final()
 
 
   // final class can't be used as base class.
-  // the below codes can't pass complier : error : cannot derive from final base 
+  // complier error : cannot derive from final base 
   {
     /*
     // class parent {
@@ -234,9 +233,9 @@ void test_final()
   }
 }
 
-
 // ============================================
 
+// override will explictly tell gcc that current method is override of base method...
 void test_override () 
 {
   {
@@ -264,7 +263,6 @@ void test_override ()
   }
 }
 
-
 // ============================================
 void test_directly_init_class_data_member() 
 {
@@ -273,7 +271,6 @@ void test_directly_init_class_data_member()
   //  if there don't exist initial action at initialization list, will just use directly initial action.
 
   {
-  
     class data_member {
       public:
           data_member(int i) : i(i) {
@@ -290,33 +287,31 @@ void test_directly_init_class_data_member()
               return *this;
           }
       
-      private:
       int i;
     };
   
   
     class test_class {
     public:
-      test_class() : m_data(1) {}
-      test_class(int xx) {}
+      test_class() {}
+      test_class(int xx) : m_data(xx) {}
   
-    private:
-      data_member m_data{22}; // this is directly initial action, and less lower priority than initialization list. !!!!!
+      data_member m_data{12345}; // this is directly initial action, and less lower priority than initialization list. !!!!!
     };
   
+    // -----
+
+    test_class temp1;
+    assert(temp1.m_data.i == 12345);
   
-    // just one initalization list are called one time
-    test_class temp;
-  
-    // just 22
-    test_class temp1(111);
+    test_class temp2(111);
+    assert(temp2.m_data.i == 111);
   }
   
 
 }
 
 // ============================
-
 
 void test_default_and_delete() 
 {
@@ -345,27 +340,24 @@ void test_default_and_delete()
 // ===========================
 
 namespace dehao {
-int size() { return sizeof(int) + sizeof(double);}
-constexpr int const_size() { return sizeof(int) + sizeof(double); }
+  int size() { return sizeof(int) + sizeof(double);}
+  constexpr int const_size() { return sizeof(int) + sizeof(double); }
 };
 
 void test_constexpr() 
 {
-
   {
-    
     int xxxx[dehao::size()];
   
     int yyyy[dehao::const_size()];
-  
   }
 
 }
 
-
 // ================ lambda function and function object =================
 
-namespace test_lambda {
+namespace test_lambda 
+{
   void printf(vector<string>& data, std::function<bool(string)> handle) {
     for (auto i : data) {
       handle(i); 
@@ -383,14 +375,14 @@ void test_lambda_and_function() {
 
   vector<string> testing{"this", "is", "lambda", "testing"};
 
+  // actual paramter : lambda function object
+  //                 : function type
   test_lambda::printf(testing, handle_temp);
 
 }
 
 
 // ====================================================
-
-
 
 
 int main() {

@@ -23,8 +23,6 @@ move    ======> static_cast<remove_reference<decltype(arg)>::type&&>(arg)
 
 */
 
-
-
 #include <iostream>
 #include <string>
 #include <assert.h>

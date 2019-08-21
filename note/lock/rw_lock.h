@@ -27,7 +27,7 @@ public:
   RWLock(const std::string &n, bool track_lock=true, bool ld=true, bool prioritize_write=false)
     : name(n), id(-1), track(track_lock),
       lockdep(ld) {
-#if defined(HAVE_PTHREAD_RWLOCKATTR_SETKIND_NP)
+    #if defined(HAVE_PTHREAD_RWLOCKATTR_SETKIND_NP)
     if (prioritize_write) {
       pthread_rwlockattr_t attr;
       pthread_rwlockattr_init(&attr);
@@ -39,7 +39,7 @@ public:
       pthread_rwlock_init(&L, &attr);
       pthread_rwlockattr_destroy(&attr);
     } else 
-#endif 
+    #endif 
     // Next block is in {} to possibly connect to the above if when code is used.
     {
       pthread_rwlock_init(&L, NULL);

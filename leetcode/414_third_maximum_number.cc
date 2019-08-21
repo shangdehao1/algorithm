@@ -37,16 +37,42 @@ namespace sorted_method {
 int thirdMax(vector<int>& nums) {
     sort(nums.begin(), nums.end());
     nums.resize(unique(nums.begin(), nums.end())-nums.begin());
-    return nums.size()>=3?nums[nums.size()-3]:nums.back();
+    return nums.size() >= 3 ? nums[nums.size()-3] : nums.back();
 }
 
 }
+
+
+
+int thirdMax(vector<int>& nums) {
+    set<int> top3;
+    for (int num : nums)
+        if (top3.insert(num).second && top3.size() > 3)
+            top3.erase(top3.begin());
+    return top3.size() == 3 ? *top3.begin() : *top3.rbegin();
+}
+
+
+
+int thirdMax(vector<int>& nums) {
+  set<int> result;
+  for (auto temp : nums) {
+    result.insert(temp); 
+    if (result.size() > 3) {
+      return 
+    }
+  }
+
+  return result.size() == 3 ? *result.begin() : *result.rbegin();
+}
+
+
+
 
 
 int main () {
 
   vector<int> data{1,22, 2,3,23,1,2,2323,90};
-
 
   set<int> hash_map(data.begin(), data.end());
 

@@ -4,36 +4,45 @@
 
 using namespace std;
 
-
 /*
 
 ==>>> static_cast 
- 1:  it can perform conversions between pointers to related classes, not only upcasts (from pointer-to-derived to pointer-to-base), 
-     but also downcasts (from pointer-to-base to pointer-to-derived). 
 
- 2:  No checks are performed during runtime to guarantee that the object being converted is in fact a full object of the destination type. 
-     Therefore, it is up to the programmer to ensure that the conversion is safe. On the other side, it does not incur the overhead of the type-safety checks of dynamic_cast.
+ 1:  user-defined type 
+
+     1) : parent <------> child 
+          it can perform conversions between pointers to related classes, not only upcasts (from pointer-to-derived to pointer-to-base), 
+          but also downcasts (from pointer-to-base to pointer-to-derived). 
+
+          no checks
+
+          No checks are performed during runtime to guarantee that the object being converted is in fact a full object of the destination type. 
+          Therefore, it is up to the programmer to ensure that the conversion is safe. On the other side, it does not incur the overhead of the type-safety checks of dynamic_cast.
 
               class Base {};
               class Derived: public Base {};
               Base * a = new Base;
               Derived * b = static_cast<Derived*>(a);  // dangerous !!!!!
 
-      This would be valid code, although b would point to an incomplete object of the class and could lead to runtime errors if dereferenced.
-      Therefore, static_cast is able to perform with pointers to classes not only the conversions allowed implicitly, but also their opposite conversions.
+           This would be valid code, although b would point to an incomplete object of the class and could lead to runtime errors if dereferenced.
+           Therefore, static_cast is able to perform with pointers to classes not only the conversions allowed implicitly, but also their opposite conversions.
 
-  3: static_cast is also able to perform all conversions allowed implicitly (not only those with pointers to classes), and is also able to perform the opposite of these. 
+     2) : no-relative transfer between classes.
+          static will explicitly call a single-argument construction or a conversion operation
 
-          Additionally, static_cast can also perform the following:
+
+ 2: build-in type 
+
+     static_cast is also able to perform all conversions allowed implicitly (not only those with pointers to classes), and is also able to perform the opposite of these. 
+
+     - Convert enum class values into integers or floating-point values.
           
-           - Explicitly call a single-argument constructor or a conversion operator.
-          
-           - Convert to rvalue references.
-          
-           - Convert enum class values into integers or floating-point values.
-          
-           - void* <----> any pointer type
-             !!!! Convert any type to void, evaluating and discarding the value.
+     - void* <----> any pointer type
+       !!!! Convert any type to void, evaluating and discarding the value.
+
+ 3: lvalue ---> rvalue 
+      static_cast<type&&> xxx; // transfer left value to right value.
+
           
 
 ==>>> dynamic_cast
@@ -44,15 +53,15 @@ using namespace std;
          This naturally includes pointer upcast (converting from pointer-to-derived to pointer-to-base), in the same way as allowed as an implicit conversion.
 
        - downcast
-          (convert from pointer-to-base to pointer-to-derived) polymorphic classes (those with virtual members) if and only-if the pointed object is a valid complete object of the target type.
+          1): (convert from pointer-to-base to pointer-to-derived) polymorphic classes (those with virtual members) 
+              if and only-if the pointed object is a valid complete object of the target type.
 
-  2:  When dynamic_cast cannot cast a pointer because it is not a complete object of the required class, it returns a null pointer to indicate the failure. 
+          2):  When dynamic_cast cannot cast a pointer because it is not a complete object of the required class, it returns a null pointer to indicate the failure. 
   
-  3:  If dynamic_cast is used to convert to a reference type and the conversion is not possible, an exception of type bad_cast is thrown instead.
-  
-  3 : dynamic_cast can also perform the other implicit casts allowed on pointers: casting null pointers between pointers types (even between unrelated classes), and casting any pointer of any type to a void* pointer.
-
-  4 ：base class need virtual function, otherwise fault....
+    If dynamic_cast is used to convert to a reference type and the conversion is not possible, an exception of type bad_cast is thrown instead.
+    dynamic_cast can also perform the other implicit casts allowed on pointers: casting null pointers between pointers types (even between unrelated classes), 
+      and casting any pointer of any type to a void* pointer.
+    base class need virtual function, otherwise fault....
 
 
 
@@ -72,7 +81,6 @@ conclusion
 
 
 */
-
 
 
 class Base {
@@ -205,8 +213,6 @@ void test_virtual_support_dynamic_cast() {
 
   }
 }
-
-
 
 
 

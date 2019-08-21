@@ -1,12 +1,11 @@
 
-
 implicit conversion
 
   - standard conversion
       some typicial situation : 
-        - negative integer is converted to an unsigned type.
-        - bool, numberic types, pointer types. 
-        - float, interger.
+        - negative integer <---> unsigned type.
+        - bool <--> numberic types  |  bool <-------> pointer types. 
+        - float <------>  interger.
 
         - null pointer can be converted to pointers of any type.
         - pointers to any type can be converted to void pointers.

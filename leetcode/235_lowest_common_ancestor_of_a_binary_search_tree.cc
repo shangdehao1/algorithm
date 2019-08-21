@@ -12,6 +12,7 @@
  * Input: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
  *
  *          6
+ *         / \
  *        /   \
  *       /     \
  *      2       8 
@@ -63,4 +64,31 @@ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
 }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

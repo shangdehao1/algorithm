@@ -1,20 +1,24 @@
 
-
-Layout 
-
-   libpmemobj defines a set of macros for convenient declaration of a pool's layout.  
-   The layout declaration consists of declarations of a number of used types. 
-   The declared types will be assigned consecutive type numbers.
-
-         POBJ_LAYOUT_BEGIN(layout)
-         POBJ_LAYOUT_TOID(layout, TYPE)
-         POBJ_LAYOUT_ROOT(layout, ROOT_TYPE)
-         POBJ_LAYOUT_NAME(layout)
-         POBJ_LAYOUT_END(layout)
-         POBJ_LAYOUT_TYPES_NUM(layout)
-
-       EXAMPLE
-          This is an example of layout declaration:
+/*
+ * Layout 
+ * 
+ *    libpmemobj defines a set of macros for convenient declaration of a pool's layout.  
+ *    The layout declaration consists of declarations of a number of used types. 
+ *    The declared types will be assigned consecutive type numbers.
+ * 
+ *          POBJ_LAYOUT_BEGIN(layout)
+ *          POBJ_LAYOUT_TOID(layout, TYPE)
+ *          POBJ_LAYOUT_ROOT(layout, ROOT_TYPE)
+ *          POBJ_LAYOUT_END(layout)
+ *
+ *
+ *          POBJ_LAYOUT_NAME(layout)
+ *          POBJ_LAYOUT_TYPES_NUM(layout)
+ * 
+ *        EXAMPLE
+ * 
+ *           This is an example of layout declaration:
+ */
 
                  POBJ_LAYOUT_BEGIN(mylayout);
                  POBJ_LAYOUT_ROOT(mylayout, struct root);
@@ -33,12 +37,13 @@ Layout
                      TOID(struct foo) foo;
                  };
 
-          The name of layout and the number of declared types can be retrieved using the following code:
+//          The name of layout and the number of declared types can be retrieved using the following code:
 
                  const char *layout_name = POBJ_LAYOUT_NAME(mylayout);
                  int num_of_types = POBJ_LAYOUT_TYPES_NUM(mylayout);
 
 
+// ================================================
 
 ROOT
 
@@ -52,7 +57,6 @@ POBJ_ROOT :
   - POBJ_ROOT() returns a typed OID of type TYPE instead of the PMEMoid returned by pmemobj_root().
 
 
-
 pmemobj_create / pmemobj_open / pmemobj_close / pmemobj_check
 
   - Once created or opened, the memory pool is represented by an opaque handle, of type PMEMobjpool*, which is passed to most of the other libpmemobj functions.
@@ -63,6 +67,7 @@ pmemobj_persist
   - consist of pmemobj_flush and pmemobj_drain
 
 pmemobj_memmove, pmemobj_memcpy, pmemobj_memset ---> pmemobj_memcpy_persist, pmemobj_memset_persist
+
   - firstly memmove, memcpy and memset, then flush them.
 
 
@@ -134,12 +139,13 @@ Transaction
               TX_END
 
 
-
+// =====================================================
 
 alloc persistent memory
 
-   Functions described in this document provide the mechanism to allocate, resize and free objects from the persistent memory pool in a thread-safe and fail-safe manner.  All the routines are atomic  with  respect  to  other
-   threads  and  any power-fail interruptions.  If any of these operations is torn by program failure or system crash, on recovery they are guaranteed to be entirely completed or discarded, leaving the persistent memory heap
+   Functions described in this document provide the mechanism to allocate, resize and free objects from the persistent memory pool in a thread-safe and fail-safe manner.  
+   All the routines are atomic  with  respect  to  other threads  and  any power-fail interruptions.  
+   If any of these operations is torn by program failure or system crash, on recovery they are guaranteed to be entirely completed or discarded, leaving the persistent memory heap
    and internal object containers in a consistent state.
 
    All these functions can be used outside transactions.  Note that operations performed using the non-transactional API are considered durable after completion, even if executed within an open transaction.  Such  non-trans‐
@@ -198,5 +204,16 @@ reverse persistent memory
               POBJ_RESERVE_ALLOC(pop, t, size, act) (EXPERIMENTAL)
               POBJ_XRESERVE_NEW(pop, t, act, flags) (EXPERIMENTAL)
               POBJ_XRESERVE_ALLOC(pop, t, size, act, flags) (EXPERIMENTAL)
+
+
+
+
+
+
+
+
+
+
+
 
 
