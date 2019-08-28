@@ -153,8 +153,8 @@ A related class, weak_ptr, is able to share pointers with shared_ptr objects wit
       
 ============================================
 
-  thread a : x = y
-  thread b : y = z
+  thread a : y + 1 ======>>>>>> x = y
+  thread b : y - 1 ======>>>>>> y = z
      
          x                                        y                                           z
       --------                                 -------                                     -------    

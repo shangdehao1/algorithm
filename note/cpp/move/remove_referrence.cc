@@ -17,6 +17,7 @@
 int main() 
 {
   typedef int&& rval_int;
+
   typedef std::remove_reference<int>::type A;
   typedef std::remove_reference<int&>::type B;
   typedef std::remove_reference<int&&>::type C;

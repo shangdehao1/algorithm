@@ -1,5 +1,7 @@
+
 /*
  * Move as rvalue
+ *
  * Returns an rvalue reference to arg.
  * 
  * This is a helper function to force move semantics on values, even if they have a name: Directly using the returned value causes arg to be considered an rvalue.
@@ -17,6 +19,7 @@
  * Header <algorithm> overloads this function, providing a similar behavior applied to ranges.
  * 
  */
+
 #include <iostream>
 #include <vector>
 #include <string>
@@ -45,7 +48,10 @@ public:
     x = "copy-construction";
   }
 
-  test_move(test_move&& other) : m_data1(std::move(other.m_data1)), m_data2(std::move(other.m_data2)) {
+  test_move(test_move&& other) : 
+      m_data1(std::move(other.m_data1)), 
+      m_data2(std::move(other.m_data2)) 
+  {
     assert(other.m_data1.size() == 0);
     assert(other.m_data2.size() == 0);
     x = "move-construction";
@@ -71,7 +77,6 @@ public:
 };
 
 }
-
 
 
 void test_move_construction () {
@@ -129,7 +134,6 @@ void test_move_construction () {
   }
 
 }
-
 
 
 int main() {

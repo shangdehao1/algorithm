@@ -99,8 +99,6 @@ void test_some_conclusion() {
 }
 
 
-
-
 int main() {
 
   test_type();
